@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@GCMainBundle/Resources/config/services.yml" }
+    - { resource: '@GCMainBundle/Resources/config/services.yml' }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -73,7 +73,7 @@ lsw_memcache:
     session:
         pool: sessions
         auto_load: true
-        prefix: "session_"
+        prefix: 'session_'
         ttl: 7200
         locking: true
         spin_lock_wait: 150000
@@ -85,7 +85,7 @@ lsw_memcache:
         result_cache:
             pool: default
             entity_manager: [default, read]  # you may specify multiple entity_managers
-            prefix: "result_"                # you may specify a prefix for the entries
+            prefix: 'result_'                # you may specify a prefix for the entries
         query_cache:
             pool: default
             entity_manager: default
