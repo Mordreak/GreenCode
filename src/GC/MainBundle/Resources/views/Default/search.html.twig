@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <nav class="navigation">
+        <div class="container">
+            <span class="title">
+                <a href="{{ url('gc_main_homepage') }}">
+                    <i class="fa fa-home"></i> Green Dentist
+                </a>
+            </span>
+        </div>
+    </nav>
+    <div id="search-results" class="container">
+        <h1>Search results for: &laquo; {{ query }} &raquo;</h1>
+        <h3>{{ results|length }} results found</h3>
+        {% if results %}
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                </tr>
+                {% for dentist in results %}
+                <tr>
+                    <td><img src="{{ dentist.image }}" title="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"></td>
+                    <td>{{ dentist.firstname }} {{ dentist.lastname }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
