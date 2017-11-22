@@ -1,1 +1,29 @@
 Memcached working: {% if working == true %} true {% else %} false {% endif %}
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <nav class="navigation">
+        <div class="container">
+            <span class="title">
+              <i class="fa fa-home"></i> Green Dentist
+            </span>
+        </div>
+    </nav>
+    <div id="search-container" class="container">
+        <div class="search-box" id="SBox">
+            <div id='search-box'>
+                <form action='/search' id='search-form' method='get' target='_top'>
+                    <input id='search-text' name='q' placeholder='Search' type='text'/>
+                    <select id="search-specialized">
+                        <option value="valeur1" selected>Valeur 1</option>
+                        <option value="valeur2">Valeur 2</option>
+                        <option value="valeur3">Valeur 3</option>
+                    </select>
+                    <button id='search-button' type='submit'>
+                        <span>Search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
