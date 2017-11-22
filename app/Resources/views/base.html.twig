@@ -6,8 +6,8 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <style>
-            @import url('https://fonts.googleapis.com/css?family=Cookie');
-            @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+            {% include 'css.html.twig' %}
+
             *{margin:0px;padding:0px;}
 
             html, body {
