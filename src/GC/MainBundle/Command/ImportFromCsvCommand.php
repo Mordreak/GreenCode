@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use GC\MainBundle\Entity\Dentist;
 
 class ImportFromCsvCommand extends ContainerAwareCommand
@@ -32,6 +33,8 @@ class ImportFromCsvCommand extends ContainerAwareCommand
     {
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine')->getManager();
+
+        /** @var EntityRepository $repo */
         $repo = $this->getContainer()->get('doctrine')->getRepository(Dentist::class);
 
         $output->writeln(['Csv Import', '============', '',]);
@@ -68,87 +71,35 @@ class ImportFromCsvCommand extends ContainerAwareCommand
                     $dentist->setPhone($data[7]);
                     $dentist->setImage($data[8]);
 
-                    $openings = json_decode($data[9]);
-                    if (false && !is_null($openings))
+                    $openings = json_decode($data[9], true);
+                    if (!is_null($openings))
                     {
                         $openings = $openings[0];
-                        $output->writeln(print_r($openings, true));
+                        $dentist->setHasOpenings(1);
 
-                        if (array_key_exists('mon', $openings))
-                        {
-                            $dentist->setMondayOpened(1);
-                            $dentist->setMondayOpening($openings['mon']['open']);
-                            $dentist->setMondayOpening($openings['mon']['close']);
-                        }
-                        else
-                        {
-                            $dentist->setMondayOpened(0);
-                        }
+                        $days = [['Monday', 'mon'],
+                                 ['Tuesday', 'tue'],
+                                 ['Wednesday', 'wed'],
+                                 ['Thursday', 'thu'],
+                                 ['Friday', 'fri'],
+                                 ['Saturday', 'sat'],
+                                 ['Sunday', 'sun']
+                                ];
 
-                        if (array_key_exists('tue', $openings))
+                        foreach ($days as $day)
                         {
-                            $dentist->setTuesdayOpened(1);
-                            $dentist->setTuesdayOpening($openings['tue']['open']);
-                            $dentist->setTuesdayOpening($openings['tue']['close']);
-                        }
-                        else
-                        {
-                            $dentist->setTuesdayOpened(0);
-                        }
-
-                        if (array_key_exists('wed', $openings))
-                        {
-                            $dentist->setWednesdayOpened(1);
-                            $dentist->setWednesdayOpening($openings['wed']['open']);
-                            $dentist->setWednesdayOpening($openings['wed']['close']);
-                        }
-                        else
-                        {
-                            $dentist->setWednesdayOpened(0);
-                        }
-
-                        if (array_key_exists('thu', $openings))
-                        {
-                            $dentist->setThursdayOpened(1);
-                            $dentist->setThursdayOpening($openings['thu']['open']);
-                            $dentist->setThursdayOpening($openings['thu']['close']);
-                        }
-                        else
-                        {
-                            $dentist->setThursdayOpened(0);
-                        }
-
-                        if (array_key_exists('fri', $openings))
-                        {
-                            $dentist->setFridayOpened(1);
-                            $dentist->setFridayOpening($openings['fri']['open']);
-                            $dentist->setFridayOpening($openings['fri']['close']);
-                        }
-                        else
-                        {
-                            $dentist->setFridayOpened(0);
-                        }
-
-                        if (array_key_exists('sat', $openings))
-                        {
-                            $dentist->setSaturdayOpened(1);
-                            $dentist->setSaturdayOpening($openings['sat']['open']);
-                            $dentist->setSaturdayOpening($openings['sat']['close']);
-                        }
-                        else
-                        {
-                            $dentist->setSaturdayOpened(0);
-                        }
-
-                        if (array_key_exists('sun', $openings))
-                        {
-                            $dentist->setSundayOpened(1);
-                            $dentist->setSundayOpening($openings['sun']['open']);
-                            $dentist->setSundayOpening($openings['sun']['close']);
-                        }
-                        else
-                        {
-                            $dentist->setSundayOpened(0);
+                            if (array_key_exists($day[1], $openings))
+                            {
+                                $opening = explode(':', $openings[$day[1]]['open']);
+                                $closing = explode(':', $openings[$day[1]]['close']);
+                                $dentist->{'set' . $day[0] . 'Opened'}(1);
+                                $dentist->{'set' . $day[0] . 'Opening'}($opening[0] * 100 + $opening[1]);
+                                $dentist->{'set' . $day[0] . 'Closing'}($closing[0] * 100 + $closing[1]);
+                            }
+                            else
+                            {
+                                $dentist->{'set' . $day[0] . 'Opened'}(0);
+                            }
                         }
                     }
                     else
@@ -160,8 +111,8 @@ class ImportFromCsvCommand extends ContainerAwareCommand
                         $dentist->setFridayOpened(0);
                         $dentist->setSaturdayOpened(0);
                         $dentist->setSundayOpened(0);
+                        $dentist->setHasOpenings(0);
                     }
-
 
                     $dentist->setSpecialty($data[10]);
 

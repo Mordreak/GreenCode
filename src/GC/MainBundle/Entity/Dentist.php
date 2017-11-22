@@ -231,6 +231,13 @@ class Dentist
      */
     private $sundayOpened;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="HasOpenings", type="smallint")
+     */
+    private $hasOpenings;
+
 
     /**
      * Get id
@@ -952,6 +959,22 @@ class Dentist
     public function setPhone($phone)
     {
         $this->phone = $phone;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHasOpenings()
+    {
+        return $this->hasOpenings;
+    }
+
+    /**
+     * @param int $hasOpenings
+     */
+    public function setHasOpenings($hasOpenings)
+    {
+        $this->hasOpenings = $hasOpenings;
     }
 }
 
