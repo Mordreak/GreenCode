@@ -4,13 +4,47 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <style>
+
             {% include 'css.html.twig' %}
+            @import url('https://fonts.googleapis.com/css?family=Cookie');
+            @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+            @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+
+            h1 {
+                margin: 0;
+                font-size: 26px;
+                line-height: 30px;
+                font-family: "Montserrat", Arial, sans-serif;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            h4 {
+                margin: 16px 0px 25px;
+                font-size: 16px;
+                font-family: "Roboto", Arial, sans-serif;
+                font-weight: 400;
+                text-align: center;
+            }
 
             *{margin:0px;padding:0px;}
-
-            html, body {
+            html {
                 height: 100%;
+                width: 100%;
+            }
+            body{
                 background-color:#eee;
+                height: 100%;
+                width: 100%;
+                background: linear-gradient(to bottom, #0596de 0%, #ccecfa 50%);
+            }
+            /* Colors */
+
+            .fbluer {
+                color: #007ea7;
+            }
+            .fyellow {
+                color: #fcff6c;
             }
 
             .navigation {
@@ -19,41 +53,103 @@
                 height:50px;
                 box-shadow: 0px 1px 1px #c8c8c8;
                 line-height:52px;
-                color:#62bb49;
             }
+
             .container {
-                width: 100%;
+                width:100%;
+                height: 100%;
                 margin:auto;
                 position: relative;
+                background-image: url({{ asset('assets/background.png') }});
+                background-repeat: no-repeat;
+                background-position-x: center;
+                background-position-y: bottom;
+                padding-top: 50px;
+            }
+
+            .fs-32 {
+                font-size:32px;
+            }
+            .fs-24 {
+                font-size:24px;
             }
             .title {
-                font-family: 'Cookie';
-                font-size: 32px;
+                font-family:'Cookie';
                 cursor: pointer;
             }
 
-            /* HomePage */
-            #search-container {
-                background-color: #5eb5e0;
-                height: 100%;
+            .fa-home {
+                font-size:22px;
             }
 
-            #search-box {
+            .search-box {
+                margin:15px;
+                width:100%;
                 position: relative;
-                width: 100%;
-                margin: 0;
+                top:48px;
+                height:48px;
+                transition:opacity 0.4s linear ,visibility 0.4s linear 0s;
             }
 
-            #search-form {
-
+            .search-box > #search {
+                width:65%;
+                height:48px;
+                box-shadow: 1px 2px 2px #ddd;
+                border-radius: 6px 0px 0px 6px;
             }
-
-            #search-specialized {
-
+            .search-box > #select {
+                width:20%;
+                min-width:155px;
+                height:48px;
+                border:none;
+                box-shadow: 1px 2px 2px #ddd;
             }
-
-            #search-text {
-
+            select {
+                border:none;
+                box-shadow:none;
+                background-color:none;
+                cursor: pointer;
+                outline: 0;
+                font-size:16px;
+                font-family:'Open Sans';
+                color:#888;
+                padding:0px 12px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            }
+            input , input:focus {
+                border:none;
+                box-shadow:none;
+                background-color:none;
+                outline: 0;
+                font-size:16px;
+                font-family:'Open Sans';
+                color:#bbb;
+                padding:0px 12px;
+            }
+            .also {
+                color:#bbb;
+                background-color:#fff;
+                height:48px;
+                width:48px;
+                border:none;
+                line-height: 48px;
+                text-align: center;
+                cursor: pointer;
+                top:0;
+                margin-left: 3px;
+                box-shadow: 1px 2px 2px #ddd;
+                border-radius:0px 6px 6px 0px;
+            }
+            .search-link:hover {color:#686868;}
+            select.minimal {
+                background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%);
+                background-position: calc(100% - 15px) calc(1em + 5px), calc(100% - 10px) calc(1em + 5px);
+                background-size: 5px 5px, 5px 5px;
+                background-repeat: no-repeat;
             }
         </style>
     </head>

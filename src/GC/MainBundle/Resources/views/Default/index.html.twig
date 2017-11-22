@@ -1,30 +1,27 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <nav class="navigation">
-        <div class="container">
-            <span class="title">
-                <a href="{{ url('gc_main_homepage') }}">
-                    <i class="fa fa-home"></i> Green Dentist
-                </a>
-            </span>
-        </div>
+    <nav class="navigation fbluer">
+       <span class="title fs-32">
+       <i class="fa fa-home"></i> Green Dentist
+      </span>
     </nav>
-    <div id="search-container" class="container">
-        <div class="search-box" id="SBox">
-            <div id='search-box'>
-                <form action='{{ url('gc_main_search') }}' id='search-form' method='get' target='_top'>
-                    <input id='search-text' name='q' placeholder='Search' type='text'/>
-                    <select id="search-specialized">
-                        <option value="valeur1" selected>Valeur 1</option>
-                        <option value="valeur2">Valeur 2</option>
-                        <option value="valeur3">Valeur 3</option>
-                    </select>
-                    <button id='search-button' type='submit'>
-                        <span>Search</span>
-                    </button>
-                </form>
-            </div>
+    <div class="container">
+        <div class="fyellow">
+            <h1>Do you need a dentist ? Try Green Dentist !</h1>
+            <h4>It's simple and free.</h4>
         </div>
+        <form action='{{ url('gc_main_search') }}' class="search-box" id="SBox">
+            <input id="search" placeholder="Search..." type="text" required>
+            <select id="select" class="search minimal">
+                <option value="firstname">Firstname</option>
+                <option value="name">Name</option>
+                <option value="address">Address</option>
+                <option value="speciality">Speciality</option>
+                <option value="hour">Opening Hour</option>
+                <option value="photo">Photo</option>
+            </select>
+            <button type="submit" class="also search-link" id="searchclick"><i class="fa fa-search"></i></button>
+        </form>
     </div>
 {% endblock %}
