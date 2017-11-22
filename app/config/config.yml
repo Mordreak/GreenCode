@@ -92,7 +92,7 @@ lsw_memcache:
     pools:
         sessions:
             servers:
-                - { host: localhost, tcp_port: 11212 }
+                - { host: localhost, tcp_port: 11211 }
         default:
             servers:
-                - { host: localhost, tcp_port: 11212 }
+                - { host: localhost, tcp_port: 11211 }
