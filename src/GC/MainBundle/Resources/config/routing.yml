@@ -1,3 +1,7 @@
 gc_main_homepage:
     path:     /
     defaults: { _controller: GCMainBundle:Default:index }
+
+gc_main_search:
+    path:     /search
+    defaults: { _controller: GCMainBundle:Default:search }

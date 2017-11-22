@@ -4,14 +4,16 @@
     <nav class="navigation">
         <div class="container">
             <span class="title">
-              <i class="fa fa-home"></i> Green Dentist
+                <a href="{{ url('gc_main_homepage') }}">
+                    <i class="fa fa-home"></i> Green Dentist
+                </a>
             </span>
         </div>
     </nav>
     <div id="search-container" class="container">
         <div class="search-box" id="SBox">
             <div id='search-box'>
-                <form action='/search' id='search-form' method='get' target='_top'>
+                <form action='{{ url('gc_main_search') }}' id='search-form' method='get' target='_top'>
                     <input id='search-text' name='q' placeholder='Search' type='text'/>
                     <select id="search-specialized">
                         <option value="valeur1" selected>Valeur 1</option>
