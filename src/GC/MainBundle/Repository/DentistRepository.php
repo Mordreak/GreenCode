@@ -28,6 +28,7 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
             $qb->orWhere($qb->expr()->like('d.lastname', '?1'));
             $qb->orWhere($qb->expr()->like('d.address', '?1'));
             $qb->orWhere($qb->expr()->like('d.city', '?1'));
+            $qb->orWhere($qb->expr()->like('d.specialty', '?1'));
 
             $qb->setParameter(1, "%$searchQuery%");
 
@@ -53,10 +54,13 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
                 $qb->andWhere($conditions);
             }
 
+            $paginator = $this->_paginate($qb, $page);
 
-            $results = $this->_paginate($qb, $page)->getIterator()->getArrayCopy();
+            $results = $paginator->getIterator()->getArrayCopy();
+            $totalResultsCount = count($qb->getQuery()->getResult());
 
             $memcache->set($cacheKey, $results, 0, 345600);
+            $memcache->set($cacheKey . '-count', $totalResultsCount, 0, 345600);
 
         } else {
             return $cachedValue;
