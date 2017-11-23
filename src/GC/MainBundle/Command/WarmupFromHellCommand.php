@@ -23,6 +23,7 @@ class WarmupFromHellCommand extends ContainerAwareCommand
 
             ->addOption('dry-run')
             ->addOption('days')
+            ->addOption('lol')
             ->addArgument('base-url')
             ->addOption('silent')
 
@@ -85,8 +86,24 @@ class WarmupFromHellCommand extends ContainerAwareCommand
             }
         }
 
+        if ($input->getOption('lol'))
+        {
+            for ($i=97; $i<=122; $i++) {
+                $urls[] = $searchUrl . 'q='. chr($i);
+                for ($j=97; $j<=122; $j++) {
+                    $urls[] = $searchUrl . 'q=' . chr($i) . chr($j);
+                    for ($k=97; $k<=122; $k++) {
+                        $urls[] = $searchUrl . 'q=' . chr($i) . chr($j) . chr($k);
+                        for ($l=97; $l<=122; $l++) {
+                            $urls[] = $searchUrl . 'q=' . chr($i) . chr($j) . chr($k) . chr($l);
+                        }
+                    }
+                }
+            }
+        }
+
         $output->writeln('Start: ' . date('H:i:s'));
-        $output->writeln(count($urls) . 'urls to test');
+        $output->writeln(count($urls) . ' urls to test');
 
         $curl = curl_init();
 
