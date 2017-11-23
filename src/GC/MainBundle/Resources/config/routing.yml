@@ -5,13 +5,13 @@ gc_main_homepage:
         _theme: bright|dark
 
 gc_main_search:
-    path:     /{_theme}/search
+    path:     /search/{_theme}
     defaults: { _controller: GCMainBundle:Default:search, _theme: bright }
     requirements:
         _theme: bright|dark
 
 gc_main_detail:
-    path:     /{_theme}dentist/{dentist_id}
+    path:     /dentist/{dentist_id}/{_theme}
     defaults: { _controller: GCMainBundle:Default:detail, _theme: bright }
     requirements:
         dentist_id: '\d+'
