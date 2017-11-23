@@ -57,6 +57,8 @@ class DefaultController extends Controller
 
         echo '<var>' . $searchQuery->getDQL() . '</var>';
 
+        $results = $searchQuery->getResult();
+
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
             'results', 'query'
         ));
