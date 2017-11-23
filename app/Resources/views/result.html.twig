@@ -3,62 +3,55 @@
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
     @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 
-    *{margin:0px;padding:0px;}
-    body{
-        background-color:#eee;
+    * {
+        margin: 0;
+        padding: 0;
     }
-    .navigation {
-        background-color:#fff;
-        width:100%;
-        height:50px;
-        box-shadow: 0px 1px 1px #c8c8c8;
-        line-height:52px;
-        color:#62bb49;
-    }
+
     .container {
-        width:70%;
-        margin:auto;
+        width: 70%;
+        margin: auto;
         position: relative;
     }
+
     .title {
-        font-family:'Cookie';
-        font-size:32px;
+        font-family: 'Cookie';
+        font-size: 32px;
         cursor: pointer;
     }
+
     .fa-home {
-        font-size:22px;
+        font-size: 22px;
     }
+
     .search-box {
-        width:100%;
+        width: 20%;
+        margin-top: 80px;
         position: relative;
-        transition:opacity 0.4s linear ,visibility 0.4s linear 0s;
+        transition: opacity 0.4s linear, visibility 0.4s linear 0s;
 
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-
-    .search-box #result_box {
-        margin-top: 40px;
         box-shadow: 1px 2px 2px #ddd;
         border-radius: 6px;
-        padding: 12px 24px;
-
         border: none;
         background-color: #fff;
         outline: 0;
         font-size: 16px;
         font-family: 'Open Sans';
-        color: #bbb;
-
+        color: #555;
         text-align: center;
+        padding: 12px;
     }
 
-    .search-box #content {
+    .search-results {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .search-results .search-result-item {
         width: 45%;
         min-width: 320px;
-        margin: 40px 10px 0px 0px;
+        margin: 40px 10px 0 0;
         box-shadow: 1px 2px 2px #ddd;
         border-radius: 6px;
         text-decoration: none;
@@ -68,7 +61,7 @@
         outline: 0;
         font-size: 16px;
         font-family: 'Open Sans';
-        color: #bbb;
+        color: #555;
 
         display: flex;
         flex-direction: row;
@@ -76,21 +69,22 @@
         padding: 12px;
     }
 
-    .search-box #content:hover {
-        box-shadow: 0px 0px 10px #aaa;
+    .search-results .search-result-item:hover {
+        box-shadow: 0 0 10px #aaa;
         cursor: pointer;
     }
 
-    .search-box #content #detail {
-        width: 47%;
+    .search-results .search-result-item .detail {
+        width: 60%;
         padding: 12px;
     }
-    .search-box #content #detail ul {
+
+    .search-results .search-result-item .detail ul {
         list-style: none;
     }
 
-    .search-box #content #right {
-        width: 40%;
+    .search-results .search-result-item .right {
+        width: 30%;
         padding: 12px;
         text-align: right;
 
@@ -100,14 +94,17 @@
         align-items: flex-end;
     }
 
-    .search-box #content #right #button-detail {
+    .search-results .search-result-item .right .button-detail {
         max-width: 80px;
-        border-radius: 6px;
+        border-radius: 4px;
         background-color: #bbb;
         color: #fff;
         text-align: center;
-        padding: 2px 12px;
+        padding: 5px 20px;
     }
 
+    .search-results .search-result-item:hover .right .button-detail {
+        background-color: #98d17a;
+    }
 
 </style>

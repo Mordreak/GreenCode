@@ -3,38 +3,40 @@
     {% include 'result.html.twig' %}
 {% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="search-box" id="SBox">
-            <div id="result_box">
-                <p>Search results for « test »</p>
-                <p>{{ results|length }} results found</p>
-            </div>
-        </div>
+    <div class="container search-box">
+        {% if query %}
+            <p>Search results for « {{ query }} »</p>
+        {% else %}
+            <p>All dentists</p>
+        {% endif %}
+        {% if results|length %}
+            <p>{{ results|length }} results found</p>
+        {% else %}
+            <p>No results found so far.</p>
+        {% endif %}
     </div>
     {% if results %}
-        <div id="search-results" class="container">
-            <div class="container search-box">
-                {% for dentist in results %}
-                    <a id="content" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
-                        <div id="detail">
-                            <ul>
-                                <li>{{ dentist.firstname }} {{ dentist.lastname }}</li>
-                                {% if dentist.specialty | length > 0 %}
-                                    <li>{{ dentist.specialty }}</li>
-                                {% endif %}
-                                <li>{{ dentist.address }} {{ dentist.city }}</li>
-                                <li>{{ dentist.phone }}</li>
-                            </ul>
+        <div class="container search-results">
+            {% for dentist in results %}
+                <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
+                    <div class="detail">
+                        <ul>
+                            <li>{{ dentist.firstname }} {{ dentist.lastname }}</li>
+                            {% if dentist.specialty | length > 0 %}
+                                <li>{{ dentist.specialty }}</li>
+                            {% endif %}
+                            <li>{{ dentist.address }} {{ dentist.city }}</li>
+                            <li>{{ dentist.phone }}</li>
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <div class="photo">
+                            <img src="data:image/png;{{ dentist.image }}"/>
                         </div>
-                        <div id="right">
-                            <div id="photo">
-                                <img src="data:image/png;{{ dentist.image }}"/>
-                            </div>
-                            <div id="button-detail"><span>Details ></span></div>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
+                        <div class="button-detail"><span>Details ></span></div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
     {% endif %}
 {% endblock %}
