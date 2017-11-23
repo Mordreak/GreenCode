@@ -1,0 +1,125 @@
+{% extends '::base.html.twig' %}
+{% block css %}
+    {% include 'result.html.twig' %}
+{% endblock %}
+{% block title %}Search result · {{ parent() }}{% endblock %}
+{% block body %}
+    <div id="search-wrapper">
+        <div class="container search-box">
+            <p class="fs-20">Advanced filters</p>
+            <hr />
+            <form class="advanced-search" action='{{ url('gc_main_search') }}'>
+                <div class="dispo">
+                    <span>
+                         Availabilities:
+                    </span>
+                    <div>
+                        <input id="cb-1" class="cb" name="days[]" type="checkbox" checked value="mon">
+                        <label for="cb-1" class="cb-label">Monday</label>
+                    </div>
+                    <div>
+                        <input id="cb-2" class="cb" name="days[]" type="checkbox" checked value="tue">
+                        <label for="cb-2" class="cb-label">Tuesday</label>
+                    </div>
+                    <div>
+                        <input id="cb-3" class="cb" name="days[]" type="checkbox" checked value="wed">
+                        <label for="cb-3"class="cb-label">Wednesday</label>
+                    </div>
+                    <div>
+                        <input id="cb-4" class="cb" name="days[]" type="checkbox" checked value="thu">
+                        <label for="cb-4"class="cb-label">Thursday</label>
+                    </div>
+                    <div>
+                        <input id="cb-5" class="cb" name="days[]" type="checkbox" checked value="fri">
+                        <label for="cb-5"class="cb-label">Friday</label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="select-wrapper">
+                    <div class="specialization">
+                    <span>
+                        Specialization:
+                    </span>
+                        <div class="select">
+                            <select name="spec">
+                                <option selected>Specialization</option>
+                                <option>Dental Public Health</option>
+                                <option>Endodontics</option>
+                                <option>Oral and Maxillofacial Pathology</option>
+                                <option>Oral and Maxillofacial Radiology</option>
+                                <option>Oral and Maxillofacial Surgery</option>
+                                <option>Orthodontics and Dentofacial Orthopedics</option>
+                                <option>Pediatric Dentistry</option>
+                                <option>Periodontics</option>
+                                <option>Prosthodontics</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="opening">
+                    <span>
+                        Opening:
+                    </span>
+                        <div class="select">
+                            <select name="ahour">
+                                <option  selected >Appointment hour</option>
+                                <option value="08">08h</option>
+                                <option value="09">09h</option>
+                                <option value="10">10h</option>
+                                <option value="11">11h</option>
+                                <option value="12">12h</option>
+                                <option value="13">13h</option>
+                                <option value="14">14h</option>
+                                <option value="15">15h</option>
+                                <option value="16">16h</option>
+                                <option value="17">17h</option>
+                                <option value="18">18h</option>
+                                <option value="19">19h</option>
+                                <option value="20">20h</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="advanced-submit" type="submit">Search &raquo;</button>
+            </form>
+        </div>
+        <div class="container search-box">
+            {% if query %}
+                <p>Search results for « {{ query }} »</p>
+            {% else %}
+                <p>All dentists</p>
+            {% endif %}
+            {% if resultsCount %}
+                <p>{{ resultsCount }} result{% if resultsCount > 1 %}s{% endif %} found</p>
+            {% else %}
+                <p>No results found so far.</p>
+            {% endif %}
+        </div>
+        {% if results %}
+            <div class="container search-results">
+                {% for dentist in results %}
+                    <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
+                        <div class="detail">
+                            <ul>
+                                <li class="name">{{ dentist.firstname }} {{ dentist.lastname }}</li>
+                                {% if dentist.specialty | length > 0 %}
+                                    <li class="specialty">{{ dentist.specialty }}</li>
+                                {% endif %}
+                                <li class="address">{{ dentist.address }} {{ dentist.city }}</li>
+                                <li class="phone">{{ dentist.phone }}</li>
+                            </ul>
+                        </div>
+                        <div class="right">
+                            <div class="photo">
+                                {% if dentist.image | length > 0 %}
+                                    <img src="data:image/png;{{ dentist.image }}"
+                                         alt="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"/>
+                                {% endif %}
+                            </div>
+                            <div class="button-detail"><span>Details &raquo;</span></div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
