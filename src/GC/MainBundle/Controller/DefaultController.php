@@ -23,13 +23,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $working = false;
-        $this->get('memcache.default')->set('someKey', true, 0, 345600);
-        $working = $this->get('memcache.default')->get('someKey');
-
-        return $this->render('GCMainBundle:Default:index.html.twig', array(
-            'working' => $working
-        ));
+        return $this->render('GCMainBundle:Default:index.html.twig');
     }
 
     /**
@@ -56,7 +50,7 @@ class DefaultController extends Controller
 
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
-        $results = $dentistRepository->searchFromCriteria($query, $page, $openDays, $openHour);
+        $results = $dentistRepository->searchFromCriteria($this->get('memcache.default'), $query, $page, $openDays, $openHour);
 
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
             'results', 'query', 'page'
@@ -71,7 +65,12 @@ class DefaultController extends Controller
     public function detailAction(Request $request, $dentist_id)
     {
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
-        $dentist           = $dentistRepository->find($dentist_id);
+
+        $dentist = $this->get('memcache.default')->get($dentist_id);
+        if ($dentist === false) {
+            $dentist = $dentistRepository->find($dentist_id);
+            $this->get('memcache.default')->set($dentist_id, $dentist, 0, 345600);
+        }
 
         return $this->render('GCMainBundle:Default:detail.html.twig', array('dentist' => $dentist));
     }
