@@ -8,6 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+    const AVAILABLE_OPEN_DAYS = array(
+        'mon' => 'monday',
+        'tue' => 'tuesday',
+        'wed' => 'wednesday',
+        'thu' => 'thursday',
+        'fri' => 'friday',
+        'sat' => 'saturday',
+        'sun' => 'sunday'
+    );
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -29,25 +39,12 @@ class DefaultController extends Controller
      */
     public function searchAction(Request $request)
     {
-        // Can be a first name, a last name, an address or a city
         $query = $request->query->get('q');
-
-        // Day of opening
-        $openDays          = $request->query->get('days');
-        $availableOpenDays = [
-            'mon' => 'monday',
-            'tue' => 'tuesday',
-            'wed' => 'wednesday',
-            'thu' => 'thursday',
-            'fri' => 'friday',
-            'sat' => 'saturday',
-            'sun' => 'sunday',
-        ];
-
-        $openDays = !empty($openDays) ? array_values(array_intersect_key($availableOpenDays, array_flip($openDays))) : null;
-
-        // Hour of opening
         $openHour = $request->query->get('hour');
+        $openDays = $request->query->get('days');
+
+        $openDays = array_values(array_intersect_key(self::AVAILABLE_OPEN_DAYS, array_flip($openDays)));
+
         $openHour = intval(trim(strtolower(str_replace(':', '', $openHour))));
         $openHour = $openHour ?: null;
 
