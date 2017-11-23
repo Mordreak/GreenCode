@@ -68,3 +68,31 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+lsw_memcache:
+    session:
+        pool: sessions
+        auto_load: true
+        prefix: 'session_'
+        ttl: 7200
+        locking: true
+        spin_lock_wait: 150000
+    doctrine:
+        metadata_cache:
+            pool: default
+            entity_manager: default          # the name of your entity_manager connection
+            document_manager: default        # the name of your document_manager connection
+        result_cache:
+            pool: default
+            entity_manager: [default, read]  # you may specify multiple entity_managers
+            prefix: 'result_'                # you may specify a prefix for the entries
+        query_cache:
+            pool: default
+            entity_manager: default
+    pools:
+        sessions:
+            servers:
+                - { host: localhost, tcp_port: 11211 }
+        default:
+            servers:
+                - { host: localhost, tcp_port: 11211 }
