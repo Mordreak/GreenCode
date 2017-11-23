@@ -8,10 +8,6 @@
         padding: 0;
     }
 
-    body {
-        background: black;
-    }
-
     .container {
         width: 70%;
         margin: auto;
@@ -47,7 +43,6 @@
     }
 
     .search-results {
-        text-align: center;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -101,10 +96,15 @@
 
     .search-results .search-result-item .right .button-detail {
         max-width: 80px;
-        border-radius: 6px;
+        border-radius: 4px;
         background-color: #bbb;
         color: #fff;
         text-align: center;
-        padding: 2px 12px;
+        padding: 5px 20px;
     }
+
+    .search-results .search-result-item:hover .right .button-detail {
+        background-color: #98d17a;
+    }
+
 </style>
