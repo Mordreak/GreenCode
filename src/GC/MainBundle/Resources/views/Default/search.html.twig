@@ -2,6 +2,7 @@
 {% block css %}
     {% include 'result.html.twig' %}
 {% endblock %}
+{% block title %}Search result · {{ parent() }}{% endblock %}
 {% block body %}
     <div id="search-wrapper">
         <div class="container search-box">
