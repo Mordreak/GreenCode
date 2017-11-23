@@ -21,12 +21,12 @@
                 <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
                     <div class="detail">
                         <ul>
-                            <li>{{ dentist.firstname }} {{ dentist.lastname }}</li>
+                            <li class="name">{{ dentist.firstname }} {{ dentist.lastname }}</li>
                             {% if dentist.specialty | length > 0 %}
-                                <li>{{ dentist.specialty }}</li>
+                                <li class="specialty">{{ dentist.specialty }}</li>
                             {% endif %}
-                            <li>{{ dentist.address }} {{ dentist.city }}</li>
-                            <li>{{ dentist.phone }}</li>
+                            <li class="address">{{ dentist.address }} {{ dentist.city }}</li>
+                            <li class="phone">{{ dentist.phone }}</li>
                         </ul>
                     </div>
                     <div class="right">
