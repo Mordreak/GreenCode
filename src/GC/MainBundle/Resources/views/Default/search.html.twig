@@ -61,7 +61,7 @@
                     </span>
                         <div class="select">
                             <select name="ahour">
-                                <option  selected >Appointment hour</option>
+                                <option value="" >Appointment hour</option>
                                 <option {% if app.request.get('ahour') == '08' %}selected{% endif %} value="08">08h</option>
                                 <option {% if app.request.get('ahour') == '09' %}selected{% endif %} value="09">09h</option>
                                 <option {% if app.request.get('ahour') == '10' %}selected{% endif %} value="10">10h</option>

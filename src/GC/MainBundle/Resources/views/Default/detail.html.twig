@@ -6,7 +6,7 @@
     <div class="detail container">
         <div class="name">
             {% if dentist.image | length > 0 %}
-                <img src="{{ dentist.image }}" title="{{ dentist.firstname }} {{ dentist.lastname }}">
+                <img src="{{ dentist.image }}" alt="{{ dentist.firstname }} {{ dentist.lastname }}">
             {% endif %}
             <h2>{{ dentist.firstname }} {{ dentist.lastname }}</h2>
         </div>
