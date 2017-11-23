@@ -105,19 +105,31 @@
                 <div class="container pagination">
                     <div class="pages">
                         {% if page > 1 %}
-                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'p': page - 1})) }}">&laquo;</a>
+                            {% if 'p=' in app.request.uri %}
+                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (page - 1))}) }}">&laquo;</a>
+                            {% else %}
+                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (page - 1)) }}">&laquo;</a>
+                            {% endif %}
                         {% endif %}
                         {% for n in -5..5 %}
                             {% if page + n > 0 and page + n < maxPage %}
                                 {% if page + n == page %}
                                     <a href="#" class="active disabled">{{ page + n }}</a>
                                 {% else %}
-                                    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'p': page + n})) }}">{{ page + n }}</a>
+                                    {% if 'p=' in app.request.uri %}
+                                        <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (page + n))}) }}">{{ page + n }}</a>
+                                    {% else %}
+                                        <a href="{{ (app.request.uri) ~ ('&p=' ~ (page + n)) }}">{{ page + n }}</a>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
                         {% if page < maxPage %}
-                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'p': page + 1})) }}">&raquo;</a>
+                            {% if 'p=' in app.request.uri %}
+                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (page + 1))}) }}">&raquo;</a>
+                            {% else %}
+                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (page + 1)) }}">&raquo;</a>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
