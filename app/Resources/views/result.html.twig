@@ -1,1 +1,113 @@
-<style></style>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Cookie');
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+    @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+
+    *{margin:0px;padding:0px;}
+    body{
+        background-color:#eee;
+    }
+    .navigation {
+        background-color:#fff;
+        width:100%;
+        height:50px;
+        box-shadow: 0px 1px 1px #c8c8c8;
+        line-height:52px;
+        color:#62bb49;
+    }
+    .container {
+        width:70%;
+        margin:auto;
+        position: relative;
+    }
+    .title {
+        font-family:'Cookie';
+        font-size:32px;
+        cursor: pointer;
+    }
+    .fa-home {
+        font-size:22px;
+    }
+    .search-box {
+        width:100%;
+        position: relative;
+        transition:opacity 0.4s linear ,visibility 0.4s linear 0s;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .search-box #result_box {
+        margin-top: 40px;
+        box-shadow: 1px 2px 2px #ddd;
+        border-radius: 6px;
+        padding: 12px 24px;
+
+        border: none;
+        background-color: #fff;
+        outline: 0;
+        font-size: 16px;
+        font-family: 'Open Sans';
+        color: #bbb;
+
+        text-align: center;
+    }
+
+    .search-box #content {
+        width: 45%;
+        min-width: 320px;
+        margin: 40px 10px 0px 0px;
+        box-shadow: 1px 2px 2px #ddd;
+        border-radius: 6px;
+        text-decoration: none;
+
+        border: none;
+        background-color: #fff;
+        outline: 0;
+        font-size: 16px;
+        font-family: 'Open Sans';
+        color: #bbb;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 12px;
+    }
+
+    .search-box #content:hover {
+        box-shadow: 0px 0px 10px #aaa;
+        cursor: pointer;
+    }
+
+    .search-box #content #detail {
+        width: 47%;
+        padding: 12px;
+    }
+    .search-box #content #detail ul {
+        list-style: none;
+    }
+
+    .search-box #content #right {
+        width: 40%;
+        padding: 12px;
+        text-align: right;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .search-box #content #right #button-detail {
+        max-width: 80px;
+        border-radius: 6px;
+        background-color: #bbb;
+        color: #fff;
+        text-align: center;
+        padding: 2px 12px;
+    }
+
+
+</style>
