@@ -19,7 +19,19 @@
             </div>
             {% if dentist.HasOpenings %}
                 <div class="opening-hours">
+                    <h3 class="item opened">
+                        <span class="label">Currently: </span>
+                        <span class="value">
+                            {% if dentist.IsCurrentlyOpened %}
+                                Open
+                            {% else %}
+                                Closed
+                            {% endif %}
+                        </span>
+                    </h3>
+
                     <h4>Opening hours</h4>
+
                     {% if dentist.MondayOpened %}
                         <p class="item"><span class="label day">Monday: </span><span class="value hours">{{ dentist.MondayOpeningFormatted }} - {{ dentist.MondayClosingFormatted }}</span></p>
                     {% else %}

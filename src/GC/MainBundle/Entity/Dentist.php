@@ -1046,5 +1046,19 @@ class Dentist
     {
         return sprintf("%'02d:%'02d", $this->getSundayClosing() / 100, $this->getSundayClosing() % 100);
     }
+
+    public function getIsCurrentlyOpened()
+    {
+        $day = date('l');
+        if ($this->{'get' . $day . 'Opened'}())
+        {
+            $hour = intval(date('Hi'));
+            return $hour <= $this->{'get' . $day . 'Closing'}() && $hour >= $this->{'get' . $day . 'Opening'}();
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
