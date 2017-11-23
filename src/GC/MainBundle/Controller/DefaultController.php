@@ -59,50 +59,11 @@ class DefaultController extends Controller
 
         $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';', $openDays) . '-' . $openHour . '-count');
 
-        $pagination = $this->_getPagination($request->getUri(), intval($request->query->get('p')), $resultsCount);
+        $maxPage = ceil($resultsCount / DentistRepository::RESULTS_PER_PAGE);
 
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
-            'results', 'resultsCount', 'query', 'page', 'pagination'
+            'results', 'resultsCount', 'query', 'page', 'maxPage'
         ));
-    }
-
-    protected function _getPagination($currentUri, $currentPage, $resultsCount)
-    {
-        $pagination = array();
-        $maxPages = 10;
-        $pageCount = 0;
-        $pageItr = -($maxPages/2);
-
-        if ($currentPage > 1)
-        {
-            $url = str_replace('p=' . $currentPage, 'p=' . ($currentPage - 1), $currentUri);
-            $pagination['previous'] = ['number' => $currentPage - 1, 'url' => $url];
-        }
-        if ($currentPage < ceil($resultsCount / 20))
-        {
-            $url = str_replace('p=' . $currentPage, 'p=' . ($currentPage + 1), $currentUri);
-            $pagination['next'] = ['number' => $currentPage + 1, 'url' => $url];
-        }
-
-        while ($pageCount <= $maxPages)
-        {
-            $pageNumber = $currentPage + $pageItr;
-            if ($pageNumber >  ceil($resultsCount / DentistRepository::RESULTS_PER_PAGE))
-                break;
-
-            if ($pageNumber > 0)
-            {
-                if ($currentPage)
-                    $url = str_replace('p=' . $currentPage, 'p=' . $pageNumber, $currentUri);
-                else
-                    $url = $currentUri . '&p=' . $pageNumber;
-                $pagination['pages'][] = ['number' => $pageNumber, 'url' => $url];
-                $pageCount++;
-            }
-            $pageItr++;
-        }
-
-        return $pagination;
     }
 
     /**

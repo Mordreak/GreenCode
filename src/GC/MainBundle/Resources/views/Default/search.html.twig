@@ -124,21 +124,23 @@
                     </a>
                 {% endfor %}
             </div>
-            {% if pagination.pages | length > 1 %}
+            {% if maxPage > 1 %}
                 <div class="container pagination">
                     <div class="pages">
-                        {% if pagination.previous is defined %}
-                            <a href="{{ pagination.previous.url }}">&laquo;</a>
+                        {% if page > 1 %}
+                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'p': page - 1})) }}">&laquo;</a>
                         {% endif %}
-                        {% for page_info in pagination.pages %}
-                            {% if page_info.number == page %}
-                                <a href="#" class="active disabled">{{ page_info.number }}</a>
-                            {% else %}
-                                <a href="{{ page_info.url }}">{{ page_info.number }}</a>
+                        {% for n in -5..5 %}
+                            {% if page + n > 0 and page + n < maxPage %}
+                                {% if page + n == page %}
+                                    <a href="#" class="active disabled">{{ page + n }}</a>
+                                {% else %}
+                                    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'p': page + n})) }}">{{ page + n }}</a>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
-                        {% if pagination.next is defined %}
-                            <a href="{{ pagination.next.url }}">&raquo;</a>
+                        {% if page < maxPage %}
+                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'p': page + 1})) }}">&raquo;</a>
                         {% endif %}
                     </div>
                 </div>
