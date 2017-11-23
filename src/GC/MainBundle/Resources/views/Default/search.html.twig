@@ -6,6 +6,32 @@
 {% block body %}
     <div id="search-wrapper">
         <div class="container search-box">
+            <p class="fs-20">Advanced Search</p>
+            <hr />
+            <form class="checkboxes">
+                <div>
+                    <input id="cb-1" class="cb" name="cb-1" type="checkbox" checked>
+                    <label for="cb-1" class="cb-label">Monday</label>
+                </div>
+                <div>
+                    <input id="cb-2" class="cb" name="cb-2" type="checkbox">
+                    <label for="cb-2" class="cb-label">Tuesday</label>
+                </div>
+                <div>
+                    <input id="cb-3" class="cb" name="cb-3" type="checkbox">
+                    <label for="cb-3"class="cb-label">Wednesday</label>
+                </div>
+                <div>
+                    <input id="cb-4" class="cb" name="cb-4" type="checkbox">
+                    <label for="cb-4"class="cb-label">Thursday</label>
+                </div>
+                <div>
+                    <input id="cb-5" class="cb" name="cb-5" type="checkbox">
+                    <label for="cb-5"class="cb-label">Friday</label>
+                </div>
+            </form>
+        </div>
+        <div class="container search-box">
             {% if query %}
                 <p>Search results for « {{ query }} »</p>
             {% else %}
