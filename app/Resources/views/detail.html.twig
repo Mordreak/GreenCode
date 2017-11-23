@@ -6,13 +6,24 @@
     .detail.container {
         margin: 80px auto 0;
         padding: 2rem;
-        background: white;
+        {% if app.request.get('_theme') == "bright" %}
+            background: white;
+        {% else %}
+            background: #4C4C4C;
+            color: white!important;
+        {% endif %}
         display: flex;
         flex-direction: column;
         max-width: 480px;
         font-family: Arial, sans-serif;
         box-shadow:2px 2px 2px gray;
         border-radius: 6px;
+    }
+
+    .value a {
+        {% if app.request.get('_theme') != "bright" %}
+            color: grey;
+        {% endif %}
     }
 
     .name {
