@@ -100,12 +100,13 @@
                     <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
                         <div class="detail">
                             <ul>
-                                <li class="name">{{ dentist.firstname }} {{ dentist.lastname }}</li>
+                                <li class="name">{% if dentist.gender %}Mr {% else %}Mrs {% endif %}{{ dentist.firstname }} {{ dentist.lastname }}</li>
                                 {% if dentist.specialty | length > 0 %}
                                     <li class="specialty">{{ dentist.specialty }}</li>
                                 {% endif %}
-                                <li class="address">{{ dentist.address }} {{ dentist.city }}</li>
-                                <li class="phone">{{ dentist.phone }}</li>
+                                <li class="address">{{ dentist.address }},</li>
+                                <li class="city">{{ dentist.city }}</li>
+                                <li class="phone">Tel: {{ dentist.phone }}</li>
                             </ul>
                         </div>
                         <div class="right">
@@ -115,7 +116,6 @@
                                          alt="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"/>
                                 {% endif %}
                             </div>
-                            <div class="button-detail"><span>Details &raquo;</span></div>
                         </div>
                     </a>
                 {% endfor %}

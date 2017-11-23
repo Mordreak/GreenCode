@@ -12,7 +12,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class DentistRepository extends \Doctrine\ORM\EntityRepository
 {
-    const RESULTS_PER_PAGE = 20;
+    const RESULTS_PER_PAGE = 10;
 
     public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array(), $openHour = null)
     {
