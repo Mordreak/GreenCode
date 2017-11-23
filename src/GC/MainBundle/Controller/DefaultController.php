@@ -61,4 +61,17 @@ class DefaultController extends Controller
             'results', 'query'
         ));
     }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailAction(Request $request, $dentist_id)
+    {
+        $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
+        $dentist = $dentistRepository->find($dentist_id);
+
+        return $this->render('GCMainBundle:Default:detail.html.twig', array('dentist' => $dentist));
+    }
 }

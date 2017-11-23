@@ -5,3 +5,9 @@ gc_main_homepage:
 gc_main_search:
     path:     /search
     defaults: { _controller: GCMainBundle:Default:search }
+
+gc_main_detail:
+    path:     /dentist/{dentist_id}
+    defaults: { _controller: GCMainBundle:Default:detail }
+    requirements:
+        dentist_id: '\d+'

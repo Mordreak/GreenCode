@@ -976,5 +976,75 @@ class Dentist
     {
         $this->hasOpenings = $hasOpenings;
     }
+
+    public function getMondayOpeningFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getMondayOpening() / 100, $this->getMondayOpening() % 100);
+    }
+
+    public function getMondayClosingFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getMondayClosing() / 100, $this->getMondayClosing() % 100);
+    }
+
+    public function getTuesdayOpeningFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getTuesdayOpening() / 100, $this->getTuesdayOpening() % 100);
+    }
+
+    public function getTuesdayClosingFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getTuesdayClosing() / 100, $this->getTuesdayClosing() % 100);
+    }
+
+    public function getWednesdayOpeningFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getWednesdayOpening() / 100, $this->getWednesdayOpening() % 100);
+    }
+
+    public function getWednesdayClosingFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getMondayClosing() / 100, $this->getMondayClosing() % 100);
+    }
+
+    public function getThursdayOpeningFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getThursdayOpening() / 100, $this->getThursdayOpening() % 100);
+    }
+
+    public function getThursdayClosingFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getThursdayClosing() / 100, $this->getThursdayClosing() % 100);
+    }
+
+    public function getFridayOpeningFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getFridayOpening() / 100, $this->getFridayOpening() % 100);
+    }
+
+    public function getFridayClosingFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getFridayClosing() / 100, $this->getFridayClosing() % 100);
+    }
+
+    public function getSaturdayOpeningFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getSaturdayOpening() / 100, $this->getSaturdayOpening() % 100);
+    }
+
+    public function getSaturdayClosingFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getSaturdayClosing() / 100, $this->getSaturdayClosing() % 100);
+    }
+
+    public function getSundayOpeningFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getSundayOpening() / 100, $this->getSundayOpening() % 100);
+    }
+
+    public function getSundayClosingFormatted()
+    {
+        return sprintf("%'02d:%'02d", $this->getSundayClosing() / 100, $this->getSundayClosing() % 100);
+    }
 }
 
