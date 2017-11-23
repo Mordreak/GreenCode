@@ -10,4 +10,34 @@ namespace GC\MainBundle\Repository;
  */
 class DentistRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function searchFromCriteria($searchQuery, $openDays = null, $openHour = null)
+    {
+        $qb = $this->createQueryBuilder('d');
+        $qb->where($qb->expr()->like('d.firstname', $searchQuery));
+        $qb->orWhere($qb->expr()->like('d.lastname', $searchQuery));
+        $qb->orWhere($qb->expr()->like('d.address', $searchQuery));
+        $qb->orWhere($qb->expr()->like('d.city', $searchQuery));
+
+        if ($openDays) {
+            $conditions = $qb->expr()->orX();
+            foreach ($openDays as $key => $openDay) {
+                $condition = $qb->expr()->andX(
+                    $qb->expr()->isNotNull("d.${openDay}Opening"),
+                    $qb->expr()->isNotNull("d.${openDay}Closing")
+                );
+
+                if ($openHour) {
+                    $condition->add($qb->expr()->andX(
+                        $qb->expr()->lte("d.${openDay}Opening", $openHour),
+                        $qb->expr()->gte("d.${openDay}Closing", $openHour)
+                    ));
+                }
+
+                $conditions->add($condition);
+            }
+            $qb->andWhere($conditions);
+        }
+
+        return $qb->getQuery();
+    }
 }

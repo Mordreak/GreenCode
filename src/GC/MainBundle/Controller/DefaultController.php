@@ -29,16 +29,39 @@ class DefaultController extends Controller
      */
     public function searchAction(Request $request)
     {
+        // Can be a first name, a last name, an address or a city
         $query = $request->query->get('q');
+
+        // Day of opening
+        $openDays          = explode(',', $request->query->get('days'));
+        $availableOpenDays = [
+            'mon' => 'Monday',
+            'tue' => 'Tuesday',
+            'wed' => 'Wednesday',
+            'thu' => 'Thursday',
+            'fri' => 'Friday',
+            'sat' => 'Saturday',
+            'sun' => 'Sunday',
+        ];
+
+        $openDays = array_values(array_intersect_key($availableOpenDays, array_flip($openDays)));
+
+        echo '<var>';
+        foreach ($openDays as $od) {
+            echo "$od<br>";
+        }
+        echo '</var>';
+
+        // Hour of opening
+        $openHour = $request->query->get('hour');
 
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
-        $searchQuery = $dentistRepository->createQueryBuilder('d')
-            ->where('d.firstname LIKE :query OR d.lastname LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
-            ->getQuery();
+        $searchQuery = $dentistRepository->searchFromCriteria($query, $openDays, $openHour);
 
-        $results = $searchQuery->getResult();
+        echo '<var>' . $searchQuery->getDQL() . '</var>';
+
+        exit;
 
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
             'results', 'query'
