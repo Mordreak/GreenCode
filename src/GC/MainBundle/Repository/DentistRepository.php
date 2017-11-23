@@ -14,10 +14,10 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
 {
     const RESULTS_PER_PAGE = 10;
 
-    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array(), $openHour = null)
+    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array())
     {
         $openDaysArray = implode(';', $openDays);
-        $cacheKey = $searchQuery . '-' . $page . '-' . $openDaysArray . '-' . $openHour;
+        $cacheKey = $searchQuery . '-' . $page . '-' . $openDaysArray;
 
         $cachedValue = $memcache->get($cacheKey);
 
@@ -39,15 +39,6 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
                         $qb->expr()->isNotNull("d.${openDay}Opening"),
                         $qb->expr()->isNotNull("d.${openDay}Closing")
                     );
-
-                    if ($openHour) {
-                        $condition->add($qb->expr()->andX(
-                            $qb->expr()->lte("d.${openDay}Opening", '?2'),
-                            $qb->expr()->gte("d.${openDay}Closing", '?2')
-                        ));
-
-                        $qb->setParameter(2, $openHour);
-                    }
 
                     $conditions->add($condition);
                 }

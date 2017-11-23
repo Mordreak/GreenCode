@@ -37,7 +37,6 @@ class DefaultController extends Controller
         $query    = $request->query->get('q');
         $page     = intval($request->query->get('p', 1));
         $openDays = $request->query->get('days');
-        $openHour = $request->query->get('hour');
 
         $openDays = $openDays ? $openDays: array();
 
@@ -50,14 +49,11 @@ class DefaultController extends Controller
             array_intersect_key(self::AVAILABLE_OPEN_DAYS, array_flip($openDays))
         ) : array();
 
-        $openHour = intval(trim(strtolower(str_replace(':', '', $openHour))));
-        $openHour = $openHour ?: null;
-
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
-        $results = $dentistRepository->searchFromCriteria($this->get('memcache.default'), $query, $page, $openDays, $openHour);
+        $results = $dentistRepository->searchFromCriteria($this->get('memcache.default'), $query, $page, $openDays);
 
-        $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';', $openDays) . '-' . $openHour . '-count');
+        $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';', $openDays) . '-count');
 
         $pagination = $this->_getPagination($request->getUri(), intval($request->query->get('p')), $resultsCount);
 

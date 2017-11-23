@@ -55,29 +55,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="opening">
-                    <span>
-                        Opening:
-                    </span>
-                        <div class="select">
-                            <select name="hour">
-                                <option value="" >Appointment hour</option>
-                                <option {% if app.request.get('hour') == '08:00' %}selected{% endif %} value="08:00">08h</option>
-                                <option {% if app.request.get('hour') == '09:00' %}selected{% endif %} value="09:00">09h</option>
-                                <option {% if app.request.get('hour') == '10:00' %}selected{% endif %} value="10:00">10h</option>
-                                <option {% if app.request.get('hour') == '11:00' %}selected{% endif %} value="11:00">11h</option>
-                                <option {% if app.request.get('hour') == '12:00' %}selected{% endif %} value="12:00">12h</option>
-                                <option {% if app.request.get('hour') == '13:00' %}selected{% endif %} value="13:00">13h</option>
-                                <option {% if app.request.get('hour') == '14:00' %}selected{% endif %} value="14:00">14h</option>
-                                <option {% if app.request.get('hour') == '15:00' %}selected{% endif %} value="15:00">15h</option>
-                                <option {% if app.request.get('hour') == '16:00' %}selected{% endif %} value="16:00">16h</option>
-                                <option {% if app.request.get('hour') == '17:00' %}selected{% endif %} value="17:00">17h</option>
-                                <option {% if app.request.get('hour') == '18:00' %}selected{% endif %} value="18:00">18h</option>
-                                <option {% if app.request.get('hour') == '19:00' %}selected{% endif %} value="19:00">19h</option>
-                                <option {% if app.request.get('hour') == '20:00' %}selected{% endif %} value="20:00">20h</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <hr />
                 <div class="search" >
