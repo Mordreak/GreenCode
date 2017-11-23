@@ -10,23 +10,6 @@
             @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
             @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 
-            h1 {
-                margin: 0;
-                font-size: 26px;
-                line-height: 30px;
-                font-family: "Montserrat", Arial, sans-serif;
-                font-weight: 700;
-                text-align: center;
-            }
-
-            h4 {
-                margin: 16px 0px 25px;
-                font-size: 16px;
-                font-family: "Roboto", Arial, sans-serif;
-                font-weight: 400;
-                text-align: center;
-            }
-
             *{margin:0px;padding:0px;}
             html {
                 height: 100%;
@@ -38,8 +21,8 @@
                 width: 100%;
                 background: linear-gradient(to bottom, #0596de 0%, #ccecfa 50%);
             }
-            /* Colors */
 
+            /* Colors */
             .fbluer {
                 color: #007ea7;
             }
@@ -54,8 +37,41 @@
                 box-shadow: 0px 1px 1px #c8c8c8;
                 line-height:52px;
             }
+            .fs-32 {
+                font-size:32px;
+            }
+            .fs-24 {
+                font-size:24px;
+            }
 
-            .container {
+            .fs-22 {
+                font-size:22px;
+            }
+
+            .title {
+                font-family:'Cookie';
+                cursor: pointer;
+            }
+            /* Homepage */
+
+            .homepage h1 {
+                margin: 0;
+                font-size: 26px;
+                line-height: 30px;
+                font-family: "Montserrat", Arial, sans-serif;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            .homepage h4 {
+                margin: 16px 0px 25px;
+                font-size: 16px;
+                font-family: "Roboto", Arial, sans-serif;
+                font-weight: 400;
+                text-align: center;
+            }
+
+            .homepage.container {
                 width:100%;
                 height: 100%;
                 margin:auto;
@@ -67,44 +83,30 @@
                 padding-top: 50px;
             }
 
-            .fs-32 {
-                font-size:32px;
-            }
-            .fs-24 {
-                font-size:24px;
-            }
-            .title {
-                font-family:'Cookie';
-                cursor: pointer;
-            }
-
-            .fa-home {
-                font-size:22px;
-            }
+            /* Search */
 
             .search-box {
-                margin:15px;
                 width:100%;
                 position: relative;
-                top:48px;
-                height:48px;
+                top:50px;
+                height:50px;
                 transition:opacity 0.4s linear ,visibility 0.4s linear 0s;
             }
 
             .search-box > #search {
                 width:65%;
-                height:48px;
+                height:50px;
                 box-shadow: 1px 2px 2px #ddd;
                 border-radius: 6px 0px 0px 6px;
             }
             .search-box > #select {
                 width:20%;
                 min-width:155px;
-                height:48px;
+                height:50px;
                 border:none;
                 box-shadow: 1px 2px 2px #ddd;
             }
-            select {
+            .homepage select {
                 border:none;
                 box-shadow:none;
                 background-color:none;
@@ -120,7 +122,7 @@
                 -webkit-appearance: none;
                 -moz-appearance: none;
             }
-            input , input:focus {
+            .homepage input ,.homepage input:focus {
                 border:none;
                 box-shadow:none;
                 background-color:none;
@@ -130,13 +132,13 @@
                 color:#bbb;
                 padding:0px 12px;
             }
-            .also {
+            .homepage .also {
                 color:#bbb;
                 background-color:#fff;
-                height:48px;
-                width:48px;
+                height:50px;
+                width:50px;
                 border:none;
-                line-height: 48px;
+                line-height: 50px;
                 text-align: center;
                 cursor: pointer;
                 top:0;
@@ -144,8 +146,8 @@
                 box-shadow: 1px 2px 2px #ddd;
                 border-radius:0px 6px 6px 0px;
             }
-            .search-link:hover {color:#686868;}
-            select.minimal {
+            .homepage .search-link:hover {color:#686868;}
+            .homepage select.minimal {
                 background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%);
                 background-position: calc(100% - 15px) calc(1em + 5px), calc(100% - 10px) calc(1em + 5px);
                 background-size: 5px 5px, 5px 5px;
