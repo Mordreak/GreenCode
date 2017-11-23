@@ -8,7 +8,7 @@
         <div class="container search-box">
             <p class="fs-20">Advanced filters</p>
             <hr />
-            <form class="advanced-search" action='{{ url('gc_main_search') }}'>
+            <form class="advanced-search" action='{{ url('gc_main_search', {'_theme': app.request.get('_theme')}) }}'>
                 <div class="dispo">
                     <span>
                          Availabilities:
