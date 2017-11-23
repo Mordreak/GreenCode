@@ -62,11 +62,16 @@
         box-shadow: none;
         border-radius: 6px;
         text-decoration: none;
-        background-color: #fff;
+        {% if app.request.get('_theme') == "bright" %}
+            background-color: #fff;
+            color: #555;
+        {% else %}
+            background-color: #555;
+            color: #fff;
+        {% endif %}
         outline: 0;
         font-size: 16px;
         font-family: Arial, Helvetica, sans-serif;
-        color: #555;
         box-sizing: border-box;
         display: flex;
         flex-direction: row;
@@ -84,7 +89,11 @@
     .search-results .search-result-item:hover {
         cursor: pointer;
         box-shadow: 0 2px 14px rgba(51, 51, 51, 0.2);
-        border: 1px solid green;
+        {% if app.request.get('_theme') == "bright" %}
+            border: 1px solid green;
+        {% else %}
+            border: 1px solid black;
+        {% endif %}
         transition: border 400ms ease-out, box-shadow 400ms ease-out;
     }
 
@@ -100,7 +109,11 @@
     .search-results .search-result-item .detail ul .name {
         font-size: 20px;
         font-weight: 600;
-        color: #333;
+        {% if app.request.get('_theme') == "bright" %}
+            color: #333;
+        {% else %}
+            color: #fff;
+        {% endif %}
     }
 
     .search-results .search-result-item .detail ul .address {
@@ -170,7 +183,11 @@
     }
 
     .cb:checked + .cb-label:before {
-        background: #62bb49;
+        {% if app.request.get('_theme') == "bright" %}
+            background: #62bb49;
+        {% else %}
+            background: black;
+        {% endif %}
         box-shadow: inset 0px 0px 0px 2px #fff;
     }
 
@@ -195,7 +212,11 @@
         outline: 0;
         box-shadow: none;
         border: 0 !important;
-        background: #98d17a;
+        {% if app.request.get('_theme') == "bright" %}
+            background: #98d17a;
+        {% else %}
+            background: black;
+        {% endif %}
         background-image: none;
     }
     /* Custom Select */
@@ -203,7 +224,11 @@
         position: relative;
         display: block;
         height: 30px;
-        background: #98d17a;
+        {% if app.request.get('_theme') == "bright" %}
+            background: #98d17a;
+        {% else %}
+            background: black;
+        {% endif %}
         overflow: hidden;
         border-radius: .25em;
         margin-top: 5px;
@@ -228,7 +253,11 @@
         right: 0;
         bottom: 0;
         padding: 0 1em;
-        background: #98d17a;
+        {% if app.request.get('_theme') == "bright" %}
+            background: #98d17a;
+        {% else %}
+            background: black;
+        {% endif %}
         pointer-events: none;
     }
     /* Transition */
@@ -263,7 +292,11 @@
     }
 
     .advanced-submit:hover {
-        background-color: #98d17a;
+        {% if app.request.get('_theme') == "bright" %}
+            background: #98d17a;
+        {% else %}
+            background: black;
+        {% endif %}
     }
 
     .select-wrapper {
@@ -342,7 +375,11 @@
     }
 
     .pagination .pages a.active {
-        background-color: #4CAF50;
+        {% if app.request.get('_theme') == "bright" %}
+            background-color: #4CAF50;
+        {% else %}
+            background-color: black;
+        {% endif %}
         color: white;
     }
 
