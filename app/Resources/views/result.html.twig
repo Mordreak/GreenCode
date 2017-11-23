@@ -1,8 +1,4 @@
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Cookie');
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-    @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
-
     * {
         margin: 0;
         padding: 0;
@@ -26,6 +22,7 @@
 
     .search-box {
         width: 20%;
+        min-width: 250px;
         margin-top: 80px;
         position: relative;
         transition: opacity 0.4s linear, visibility 0.4s linear 0s;
@@ -50,7 +47,6 @@
 
     .search-results .search-result-item {
         width: 45%;
-        min-width: 320px;
         margin: 40px 10px 0 0;
         box-shadow: 1px 2px 2px #ddd;
         border-radius: 6px;
@@ -67,6 +63,13 @@
         flex-direction: row;
         justify-content: space-around;
         padding: 12px;
+        box-sizing: border-box;
+    }
+
+    @media all and (max-width: 1000px) {
+        .search-results .search-result-item {
+            width: 100%;
+        }
     }
 
     .search-results .search-result-item:hover {
@@ -95,7 +98,6 @@
     }
 
     .search-results .search-result-item .right .button-detail {
-        max-width: 80px;
         border-radius: 4px;
         background-color: #bbb;
         color: #fff;

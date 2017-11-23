@@ -84,6 +84,12 @@
                 font-family: sans-serif;
             }
 
+            @media all and (max-width: 500px) {
+                .tagline {
+                    display: none;
+                }
+            }
+
             .fa-home {
                 height: 40px;
                 padding: 5px;
@@ -105,7 +111,7 @@
             <a class="title" href="/">
                <span class="fs-32">Green Dentist</span>
             </a>
-            <span class="tagline">The best green dentist for your green teeth bruh</span>
+            <span class="tagline">The best green dentist for your green teeth</span>
         </nav>
 
         {% block body %}{% endblock %}
