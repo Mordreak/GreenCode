@@ -56,8 +56,10 @@ class DefaultController extends Controller
 
         $results = $dentistRepository->searchFromCriteria($this->get('memcache.default'), $query, $page, $openDays, $openHour);
 
+        $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';', $openDays) . '-' . $openHour . '-count');
+
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
-            'results', 'query', 'page'
+            'results', 'resultsCount', 'query', 'page'
         ));
     }
 
