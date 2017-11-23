@@ -85,6 +85,8 @@ class WarmupFromHellCommand extends ContainerAwareCommand
             }
         }
 
+        $output->writeln('Start: ' . date('H:i:s'));
+
         $curl = curl_init();
 
         foreach ($urls as $url)
@@ -108,6 +110,8 @@ class WarmupFromHellCommand extends ContainerAwareCommand
         }
 
         curl_close($curl);
+
+        $output->writeln('End: ' . date('H:i:s'));
 
         $output->writeln(count($urls) . ' urls generated.');
 
