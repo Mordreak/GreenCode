@@ -2,6 +2,8 @@
 
 namespace GC\MainBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * DentistRepository
  *
@@ -10,7 +12,9 @@ namespace GC\MainBundle\Repository;
  */
 class DentistRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function searchFromCriteria($searchQuery, $openDays = null, $openHour = null)
+    const RESULTS_PER_PAGE = 20;
+
+    public function searchFromCriteria($searchQuery, $page = 1, $openDays = null, $openHour = null)
     {
         $qb = $this->createQueryBuilder('d');
         $qb->where($qb->expr()->like('d.firstname', '?1'));
@@ -42,6 +46,36 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere($conditions);
         }
 
-        return $qb->getQuery();
+        $paginator = $this->_paginate($qb, $page);
+
+        return $paginator;
+    }
+
+    /**
+     * Paginator Helper
+     *
+     * Pass through a query object, current page & limit
+     * the offset is calculated from the page and limit
+     * returns an `Paginator` instance, which you can call the following on:
+     *
+     *     $paginator->getIterator()->count() # Total fetched (ie: `5` posts)
+     *     $paginator->count() # Count of ALL posts (ie: `20` posts)
+     *     $paginator->getIterator() # ArrayIterator
+     *
+     * @param Doctrine\ORM\Query $dql   DQL Query Object
+     * @param integer            $page  Current page (defaults to 1)
+     * @param integer            $limit The total number per page (defaults to 20)
+     *
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+     */
+    protected function _paginate($dql, $page = 1, $limit = self::RESULTS_PER_PAGE)
+    {
+        $paginator = new Paginator($dql);
+
+        $paginator->getQuery()
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit);
+
+        return $paginator;
     }
 }

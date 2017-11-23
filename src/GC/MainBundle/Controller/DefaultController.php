@@ -40,6 +40,7 @@ class DefaultController extends Controller
     public function searchAction(Request $request)
     {
         $query    = $request->query->get('q');
+        $page     = intval($request->query->get('p', 1));
         $openDays = $request->query->get('days');
         $openHour = $request->query->get('hour');
 
@@ -55,12 +56,10 @@ class DefaultController extends Controller
 
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
-        $searchQuery = $dentistRepository->searchFromCriteria($query, $openDays, $openHour);
-
-        $results = $searchQuery->getResult();
+        $results = $dentistRepository->searchFromCriteria($query, $page, $openDays, $openHour);
 
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
-            'results', 'query'
+            'results', 'query', 'page'
         ));
     }
 
