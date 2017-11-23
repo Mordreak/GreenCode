@@ -5,23 +5,27 @@
 {% block body %}
     <div class="detail container">
         <div class="name">
-            <img src="{{ dentist.image }}" title="{{ dentist.firstname }} {{ dentist.lastname }}">
+            {% if dentist.image | length > 0 %}
+                <img src="{{ dentist.image }}" title="{{ dentist.firstname }} {{ dentist.lastname }}">
+            {% endif %}
             <h2>{{ dentist.firstname }} {{ dentist.lastname }}</h2>
         </div>
         <div class="detail">
             {% if dentist.specialty | length > 0 %}
                 <h4 class="item specialty"><span class="label">Specialty: </span><span class="value">{{ dentist.specialty }}</span></h4>
             {% endif %}
-            <h4 class="opened">
-                <span>Currently </span>
-                <span>
-                    {% if dentist.IsCurrentlyOpened %}
-                        Open
-                    {% else %}
-                        Closed
-                    {% endif %}
-                </span>
-            </h4>
+            {% if dentist.HasOpenings %}
+                <h4 class="opened">
+                    <span>Currently </span>
+                    <span>
+                        {% if dentist.IsCurrentlyOpened %}
+                            Open
+                        {% else %}
+                            Closed
+                        {% endif %}
+                    </span>
+                </h4>
+            {% endif %}
             <div class="contact">
                 <h4 class="item phone"><span class="label">Phone: </span><span class="value"><a href="tel:{{ dentist.phone }}">{{ dentist.phone }}</a></span></h4>
                 <h4 class="item email"><span class="label">Email: </span><span class="value"><a href="mailto:{{ dentist.email }}">{{ dentist.email }}</a></span></h4>

@@ -17,31 +17,32 @@
                 <p>No results found so far.</p>
             {% endif %}
         </div>
-    {% if results %}
-        <div class="container search-results">
-            {% for dentist in results %}
-                <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
-                    <div class="detail">
-                        <ul>
-                            <li class="name">{{ dentist.firstname }} {{ dentist.lastname }}</li>
-                            {% if dentist.specialty | length > 0 %}
-                                <li class="specialty">{{ dentist.specialty }}</li>
-                            {% endif %}
-                            <li class="address">{{ dentist.address }} {{ dentist.city }}</li>
-                            <li class="phone">{{ dentist.phone }}</li>
-                        </ul>
-                    </div>
-                    <div class="right">
-                        <div class="photo">
-                            {% if dentist.image | length > 0 %}
-                                <img src="data:image/png;{{ dentist.image }}"
-                                     alt="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"/>
-                            {% endif %}
+        {% if results %}
+            <div class="container search-results">
+                {% for dentist in results %}
+                    <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
+                        <div class="detail">
+                            <ul>
+                                <li class="name">{{ dentist.firstname }} {{ dentist.lastname }}</li>
+                                {% if dentist.specialty | length > 0 %}
+                                    <li class="specialty">{{ dentist.specialty }}</li>
+                                {% endif %}
+                                <li class="address">{{ dentist.address }} {{ dentist.city }}</li>
+                                <li class="phone">{{ dentist.phone }}</li>
+                            </ul>
                         </div>
-                        <div class="button-detail"><span>Details &raquo;</span></div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-    {% endif %}
+                        <div class="right">
+                            <div class="photo">
+                                {% if dentist.image | length > 0 %}
+                                    <img src="data:image/png;{{ dentist.image }}"
+                                         alt="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"/>
+                                {% endif %}
+                            </div>
+                            <div class="button-detail"><span>Details &raquo;</span></div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
