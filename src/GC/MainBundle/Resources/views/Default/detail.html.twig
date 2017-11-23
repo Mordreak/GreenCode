@@ -13,8 +13,8 @@
                 <h3 class="item specialty"><span class="label">Specialty: </span><span class="value">{{ dentist.specialty }}</span></h3>
             {% endif %}
             <div class="contact">
-                <h3 class="item phone"><span class="label">Phone: </span><span class="value">{{ dentist.phone }}</span></h3>
-                <h3 class="item email"><span class="label">Email: </span><span class="value">{{ dentist.email }}</span></h3>
+                <h3 class="item phone"><span class="label">Phone: </span><span class="value"><a href="tel:{{ dentist.phone }}">{{ dentist.phone }}</a></span></h3>
+                <h3 class="item email"><span class="label">Email: </span><span class="value"><a href="mailto:{{ dentist.email }}">{{ dentist.email }}</a></span></h3>
                 <h3 class="item address"><span class="label">Address: </span><span class="value">{{ dentist.address }} {{ dentist.city }}</span></h3>
             </div>
             {% if dentist.HasOpenings %}
