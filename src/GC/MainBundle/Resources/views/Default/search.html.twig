@@ -124,6 +124,25 @@
                     </a>
                 {% endfor %}
             </div>
+            {% if pagination.pages | length > 1 %}
+                <div class="container pagination">
+                    <div class="pages">
+                        {% if pagination.previous is defined %}
+                            <a href="{{ pagination.previous.url }}">&laquo;</a>
+                        {% endif %}
+                        {% for page_info in pagination.pages %}
+                            {% if page_info.number == page %}
+                                <a href="#" class="active disabled">{{ page_info.number }}</a>
+                            {% else %}
+                                <a href="{{ page_info.url }}">{{ page_info.number }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if pagination.next is defined %}
+                            <a href="{{ pagination.next.url }}">&raquo;</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}
