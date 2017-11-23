@@ -112,7 +112,7 @@
                         <div class="right">
                             <div class="photo">
                                 {% if dentist.image | length > 0 %}
-                                    <img src="data:image/png;{{ dentist.image }}"
+                                    <img src="{{ dentist.image }}"
                                          alt="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"/>
                                 {% endif %}
                             </div>
