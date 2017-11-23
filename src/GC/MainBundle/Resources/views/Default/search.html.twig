@@ -101,7 +101,7 @@
         {% if results %}
             <div class="container search-results">
                 {% for dentist in results %}
-                    <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
+                    <a class="search-result-item" href="{{ path('gc_main_detail', {'dentist_id': dentist.id, '_theme': app.request.get('_theme') }) }}">
                         <div class="detail">
                             <ul>
                                 <li class="name">{% if dentist.gender %}Mr {% else %}Mrs {% endif %}{{ dentist.firstname }} {{ dentist.lastname }}</li>

@@ -2,15 +2,17 @@
 {% block css %}
     {% include '::homepage.html.twig' %}
 {% endblock %}
+{% block nav %}
+{% endblock %}
 {% block body %}
     <div class="homepage container">
         <div class="title-wrapper">
             <h1>
                 <span class="title" id="home-main-header">Green Dentist</span>
-                <span class="subtitle">The fastest way to find the dentist you need !</span>
+                <span class="subtitle">The fastest way to find the dentist you need {{ app.request.get('_theme') }}!</span>
             </h1>
         </div>
-        <form action='{{ url('gc_main_search') }}' class="search-box" id="SBox">
+        <form action='{{ path('gc_main_search', {'_theme': app.request.get('_theme') }) }}' class="search-box" id="SBox">
             <input id="search" placeholder="Search for a dentist Name, Firstname Or Address..." type="text" name="q" required>
             <button type="submit" class="also search-link" id="searchclick">
                 <img alt="search-button"
