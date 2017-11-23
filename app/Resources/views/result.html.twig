@@ -112,7 +112,7 @@
         align-items: flex-end;
     }
 
-    .search-results .search-result-item .right .button-detail {
+    .search-results .search-result-item .right .button-detail  {
         border-radius: 4px;
         background-color: #bbb;
         color: #fff;
@@ -175,12 +175,101 @@
     .cb:focus + .cb-label, .radio-custom:focus + .radio-custom-label {
         outline: 1px solid #ddd; /* focus style */
     }
+    /* Select */
+    h1 {
+        text-align: center;
+    }
 
-    .checkboxes div {
+    /* Reset Select */
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+        outline: 0;
+        box-shadow: none;
+        border: 0 !important;
+        background: #98d17a;
+        background-image: none;
+    }
+    /* Custom Select */
+    .select {
+        position: relative;
+        display: block;
+        height: 30px;
+        background: #98d17a;
+        overflow: hidden;
+        border-radius: .25em;
+        margin-top: 5px;
+        color: white !important;
+    }
+    select {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0 0 0 .5em;
+        color: #fff;
+        cursor: pointer;
+    }
+    select::-ms-expand {
+        display: none;
+    }
+    /* Arrow */
+    .select::after {
+        content: '\25BC';
+        position: absolute;
+        top: 7px;
+        right: 0;
+        bottom: 0;
+        padding: 0 1em;
+        background: #98d17a;
+        pointer-events: none;
+    }
+    /* Transition */
+    .select:hover::after {
+        color: white;
+    }
+    .select::after {
+        -webkit-transition: .25s all ease;
+        -o-transition: .25s all ease;
+        transition: .25s all ease;
+    }
+    /* Advanced Search */
+    .dispo div {
         display: inline-block;
     }
 
     .container.search-box hr {
         margin: 10px;
     }
+
+    .advanced-submit {
+        color: #fff;
+        background-color: #bbb;
+        border: none;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 6px;
+        padding: 10px 30px;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .advanced-submit:hover {
+        background-color: #98d17a;
+    }
+
+    .select-wrapper {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .specialization {
+        width: 40%;
+    }
+
+    .opening {
+        width: 40%;
+    }
+
 </style>
