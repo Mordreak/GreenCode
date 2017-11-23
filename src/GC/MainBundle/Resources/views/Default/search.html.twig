@@ -10,22 +10,42 @@
             </span>
         </div>
     </nav>
-    <div id="search-results" class="container">
-        <h1>Search results for: &laquo; {{ query }} &raquo;</h1>
-        <h3>{{ results|length }} results found</h3>
-        {% if results %}
-            <table>
-                <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                </tr>
-                {% for dentist in results %}
-                <tr>
-                    <td><img src="{{ dentist.image }}" title="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"></td>
-                    <td>{{ dentist.firstname }} {{ dentist.lastname }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
+
+    <div class="container">
+        <div class="search-box" id="SBox">
+            <div id="result_box">
+                <p>Search results for « test »</p>
+                <p>{{ results|length }} results found</p>
+            </div>
+        </div>
     </div>
+    {% if results %}
+        <div id="search-results" class="container">
+            <h1>Search results for: &laquo; {{ query }} &raquo;</h1>
+            <h3>{{ results|length }} results found</h3>
+
+            <div class="container search-box">
+                {% for dentist in results %}
+                    <a id="content" href="{{ path('gc_main_detail', {'dentist_id': dentist.id }) }}">
+                        <div id="detail">
+                            <ul>
+                                <li>{{ dentist.firstname }} {{ dentist.lastname }}</li>
+                                {% if dentist.specialty | length > 0 %}
+                                    <li>{{ dentist.specialty }}</li>
+                                {% endif %}
+                                <li>{{ dentist.address }} {{ dentist.city }}</li>
+                                <li>{{ dentist.phone }}</li>
+                            </ul>
+                        </div>
+                        <div id="right">
+                            <div id="photo">
+                                <img src="data:image/png;{{ dentist.image }}"/>
+                            </div>
+                            <div id="button-detail"><span>More details</span></div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
