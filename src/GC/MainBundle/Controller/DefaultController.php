@@ -44,7 +44,7 @@ class DefaultController extends Controller
             'sun' => 'sunday',
         ];
 
-        $openDays = array_values(array_intersect_key($availableOpenDays, array_flip($openDays)));
+        $openDays = !empty($openDays) ? array_values(array_intersect_key($availableOpenDays, array_flip($openDays))) : null;
 
         // Hour of opening
         $openHour = $request->query->get('hour');
