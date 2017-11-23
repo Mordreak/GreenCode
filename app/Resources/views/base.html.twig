@@ -58,7 +58,7 @@
             }
 
             .fs-32 {
-                font-size:32px;
+                font-size: 25px;
             }
 
             .fs-24 {
@@ -77,6 +77,7 @@
                 margin-right: auto;
                 margin-left: 20px;
                 font-family: Verdana;
+                box-sizing: border-box;
             }
 
             .title span {
@@ -84,7 +85,9 @@
                 display: inline-block;
                 width: 100%;
                 text-align: center;
-                height: auto;
+                height: 50px;
+                box-sizing: border-box;
+                float: left;
                 {% if app.request.get('_theme') == "bright" %}
                     color: #62bb49;
                 {% else %}
