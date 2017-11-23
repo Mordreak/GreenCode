@@ -12,7 +12,7 @@
                 <p>All dentists</p>
             {% endif %}
             {% if results|length %}
-                <p>{{ results|length }} results found</p>
+                <p>{{ results|length }} result{% if results|length > 1 %}s{% endif %} found</p>
             {% else %}
                 <p>No results found so far.</p>
             {% endif %}
