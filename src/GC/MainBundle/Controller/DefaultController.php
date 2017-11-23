@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $query = $request->query->get('q');
 
         // Day of opening
-        $openDays          = explode(',', $request->query->get('days'));
+        $openDays          = $request->query->get('days');
         $availableOpenDays = [
             'mon' => 'Monday',
             'tue' => 'Tuesday',
@@ -46,22 +46,16 @@ class DefaultController extends Controller
 
         $openDays = array_values(array_intersect_key($availableOpenDays, array_flip($openDays)));
 
-        echo '<var>';
-        foreach ($openDays as $od) {
-            echo "$od<br>";
-        }
-        echo '</var>';
-
         // Hour of opening
         $openHour = $request->query->get('hour');
+        $openHour = intval(trim(strtolower(str_replace(':', '', $openHour))));
+        $openHour = $openHour ?: null;
 
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
         $searchQuery = $dentistRepository->searchFromCriteria($query, $openDays, $openHour);
 
         echo '<var>' . $searchQuery->getDQL() . '</var>';
-
-        exit;
 
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
             'results', 'query'
