@@ -39,11 +39,16 @@ class DefaultController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $query = $request->query->get('q');
-        $openHour = $request->query->get('hour');
+        $query    = $request->query->get('q');
         $openDays = $request->query->get('days');
+        $openHour = $request->query->get('hour');
 
-        $openDays = array_values(array_intersect_key(self::AVAILABLE_OPEN_DAYS, array_flip($openDays)));
+        if (is_string($openDays)) {
+            $openDays = array($openDays);
+        }
+        $openDays = !empty($openDays) ? array_values(
+            array_intersect_key(self::AVAILABLE_OPEN_DAYS, array_flip($openDays))
+        ) : null;
 
         $openHour = intval(trim(strtolower(str_replace(':', '', $openHour))));
         $openHour = $openHour ?: null;
@@ -67,7 +72,7 @@ class DefaultController extends Controller
     public function detailAction(Request $request, $dentist_id)
     {
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
-        $dentist = $dentistRepository->find($dentist_id);
+        $dentist           = $dentistRepository->find($dentist_id);
 
         return $this->render('GCMainBundle:Default:detail.html.twig', array('dentist' => $dentist));
     }
