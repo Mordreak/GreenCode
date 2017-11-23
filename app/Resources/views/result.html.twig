@@ -296,4 +296,51 @@
         padding:0px 12px;
     }
 
+    .pagination {
+        font-family: Arial, Helvetica, sans-serif;
+        padding-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pagination .pages {
+        display: flex;
+        justify-content: center;
+
+        box-shadow:2px 2px 2px gray;
+        border-radius: 6px;
+        text-decoration: none;
+
+        border: none;
+        background-color: #fff;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .pagination .pages a {
+        color: #555;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    .pagination .pages a.disabled {
+        cursor: default;
+    }
+
+    .pagination .pages a:first-of-type {
+        border-radius: 6px 0 0 6px;
+    }
+
+    .pagination .pages a:last-of-type {
+        border-radius: 0 6px 6px 0;
+    }
+
+    .pagination .pages a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .pagination .pages a:hover:not(.disabled) {background-color: #ddd;}
+
 </style>

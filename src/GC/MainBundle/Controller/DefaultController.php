@@ -58,8 +58,42 @@ class DefaultController extends Controller
 
         $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';', $openDays) . '-' . $openHour . '-count');
 
+        $pagination = array();
+        $maxPages = 10;
+        $pageCount = 0;
+        $pageItr = -($maxPages/2);
+
+        if ($page > 1)
+        {
+            $url = str_replace('p=' . $page, 'p=' . ($page - 1), $request->getUri());
+            $pagination['previous'] = ['number' => $page - 1, 'url' => $url];
+        }
+        if ($page < ceil($resultsCount / 20))
+        {
+            $url = str_replace('p=' . $page, 'p=' . ($page + 1), $request->getUri());
+            $pagination['next'] = ['number' => $page + 1, 'url' => $url];
+        }
+
+        while ($pageCount <= $maxPages)
+        {
+            $pageNumber = $page + $pageItr;
+            if ($pageNumber >  ceil($resultsCount / 20))
+                break;
+
+            if ($pageNumber > 0)
+            {
+                if ($request->query->get('p'))
+                    $url = str_replace('p=' . $page, 'p=' . $pageNumber, $request->getUri());
+                else
+                    $url = $request->getUri() . '&p=' . $pageNumber;
+                $pagination['pages'][] = ['number' => $pageNumber, 'url' => $url];
+                $pageCount++;
+            }
+            $pageItr++;
+        }
+
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
-            'results', 'resultsCount', 'query', 'page'
+            'results', 'resultsCount', 'query', 'page', 'pagination'
         ));
     }
 
