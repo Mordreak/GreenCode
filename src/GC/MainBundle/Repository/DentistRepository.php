@@ -13,10 +13,12 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
     public function searchFromCriteria($searchQuery, $openDays = null, $openHour = null)
     {
         $qb = $this->createQueryBuilder('d');
-        $qb->where($qb->expr()->like('d.firstname', $searchQuery));
-        $qb->orWhere($qb->expr()->like('d.lastname', $searchQuery));
-        $qb->orWhere($qb->expr()->like('d.address', $searchQuery));
-        $qb->orWhere($qb->expr()->like('d.city', $searchQuery));
+        $qb->where($qb->expr()->like('d.firstname', '?1'));
+        $qb->orWhere($qb->expr()->like('d.lastname', '?1'));
+        $qb->orWhere($qb->expr()->like('d.address', '?1'));
+        $qb->orWhere($qb->expr()->like('d.city', '?1'));
+
+        $qb->setParameter(1, "%$searchQuery%");
 
         if ($openDays) {
             $conditions = $qb->expr()->orX();
@@ -28,9 +30,11 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
 
                 if ($openHour) {
                     $condition->add($qb->expr()->andX(
-                        $qb->expr()->lte("d.${openDay}Opening", $openHour),
-                        $qb->expr()->gte("d.${openDay}Closing", $openHour)
+                        $qb->expr()->lte("d.${openDay}Opening", '?2'),
+                        $qb->expr()->gte("d.${openDay}Closing", '?2')
                     ));
+
+                    $qb->setParameter(2, $openHour);
                 }
 
                 $conditions->add($condition);

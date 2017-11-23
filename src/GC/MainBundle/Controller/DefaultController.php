@@ -35,13 +35,13 @@ class DefaultController extends Controller
         // Day of opening
         $openDays          = $request->query->get('days');
         $availableOpenDays = [
-            'mon' => 'Monday',
-            'tue' => 'Tuesday',
-            'wed' => 'Wednesday',
-            'thu' => 'Thursday',
-            'fri' => 'Friday',
-            'sat' => 'Saturday',
-            'sun' => 'Sunday',
+            'mon' => 'monday',
+            'tue' => 'tuesday',
+            'wed' => 'wednesday',
+            'thu' => 'thursday',
+            'fri' => 'friday',
+            'sat' => 'saturday',
+            'sun' => 'sunday',
         ];
 
         $openDays = array_values(array_intersect_key($availableOpenDays, array_flip($openDays)));
@@ -54,8 +54,6 @@ class DefaultController extends Controller
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
         $searchQuery = $dentistRepository->searchFromCriteria($query, $openDays, $openHour);
-
-        echo '<var>' . $searchQuery->getDQL() . '</var>';
 
         $results = $searchQuery->getResult();
 
