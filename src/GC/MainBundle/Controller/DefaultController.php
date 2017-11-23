@@ -38,6 +38,8 @@ class DefaultController extends Controller
         $openDays = $request->query->get('days');
         $openHour = $request->query->get('hour');
 
+        $openDays = $openDays ? $openDays: array();
+
         $page = $page > 0 ? $page : 1;
 
         if (is_string($openDays)) {
@@ -45,7 +47,7 @@ class DefaultController extends Controller
         }
         $openDays = !empty($openDays) ? array_values(
             array_intersect_key(self::AVAILABLE_OPEN_DAYS, array_flip($openDays))
-        ) : null;
+        ) : array();
 
         $openHour = intval(trim(strtolower(str_replace(':', '', $openHour))));
         $openHour = $openHour ?: null;

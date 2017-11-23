@@ -14,7 +14,7 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
 {
     const RESULTS_PER_PAGE = 20;
 
-    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = null, $openHour = null)
+    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array(), $openHour = null)
     {
         $openDaysArray = implode(';', $openDays);
         $cacheKey = $searchQuery . '-' . $page . '-' . $openDaysArray . '-' . $openHour;
