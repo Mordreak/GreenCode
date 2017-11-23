@@ -14,24 +14,24 @@
                          Availabilities:
                     </span>
                     <div>
-                        <input id="cb-1" class="cb" name="days[]" type="checkbox" checked value="mon">
+                        <input id="cb-1" class="cb" name="days[]" type="checkbox" {% if 'mon' in app.request.get('days') %}checked{% endif %} value="mon">
                         <label for="cb-1" class="cb-label">Monday</label>
                     </div>
                     <div>
-                        <input id="cb-2" class="cb" name="days[]" type="checkbox" checked value="tue">
+                        <input id="cb-2" class="cb" name="days[]" type="checkbox" {% if 'tue' in app.request.get('days') %}checked{% endif %} value="tue">
                         <label for="cb-2" class="cb-label">Tuesday</label>
                     </div>
                     <div>
-                        <input id="cb-3" class="cb" name="days[]" type="checkbox" checked value="wed">
-                        <label for="cb-3"class="cb-label">Wednesday</label>
+                        <input id="cb-3" class="cb" name="days[]" type="checkbox" {% if 'wed' in app.request.get('days') %}checked{% endif %} value="wed">
+                        <label for="cb-3" class="cb-label">Wednesday</label>
                     </div>
                     <div>
-                        <input id="cb-4" class="cb" name="days[]" type="checkbox" checked value="thu">
-                        <label for="cb-4"class="cb-label">Thursday</label>
+                        <input id="cb-4" class="cb" name="days[]" type="checkbox" {% if 'thu' in app.request.get('days') %}checked{% endif %} value="thu">
+                        <label for="cb-4" class="cb-label">Thursday</label>
                     </div>
                     <div>
-                        <input id="cb-5" class="cb" name="days[]" type="checkbox" checked value="fri">
-                        <label for="cb-5"class="cb-label">Friday</label>
+                        <input id="cb-5" class="cb" name="days[]" type="checkbox" {% if 'fri' in app.request.get('days') %}checked{% endif %} value="fri">
+                        <label for="cb-5" class="cb-label">Friday</label>
                     </div>
                 </div>
                 <hr/>
@@ -42,16 +42,16 @@
                     </span>
                         <div class="select">
                             <select name="spec">
-                                <option selected>Specialization</option>
-                                <option>Dental Public Health</option>
-                                <option>Endodontics</option>
-                                <option>Oral and Maxillofacial Pathology</option>
-                                <option>Oral and Maxillofacial Radiology</option>
-                                <option>Oral and Maxillofacial Surgery</option>
-                                <option>Orthodontics and Dentofacial Orthopedics</option>
-                                <option>Pediatric Dentistry</option>
-                                <option>Periodontics</option>
-                                <option>Prosthodontics</option>
+                                <option value="">Specialization</option>
+                                <option {% if app.request.get('spec') == 'dph' %}selected{% endif %} value="dph">Dental Public Health</option>
+                                <option {% if app.request.get('spec') == 'end' %}selected{% endif %} value="end">Endodontics</option>
+                                <option {% if app.request.get('spec') == 'omp' %}selected{% endif %} value="omp">Oral and Maxillofacial Pathology</option>
+                                <option {% if app.request.get('spec') == 'omr' %}selected{% endif %} value="omr">Oral and Maxillofacial Radiology</option>
+                                <option {% if app.request.get('spec') == 'oms' %}selected{% endif %} value="oms">Oral and Maxillofacial Surgery</option>
+                                <option {% if app.request.get('spec') == 'odo' %}selected{% endif %} value="odo">Orthodontics and Dentofacial Orthopedics</option>
+                                <option {% if app.request.get('spec') == 'pd' %}selected{% endif %} value="pd">Pediatric Dentistry</option>
+                                <option {% if app.request.get('spec') == 'per' %}selected{% endif %} value="per">Periodontics</option>
+                                <option {% if app.request.get('spec') == 'pro' %}selected{% endif %} value="pro">Prosthodontics</option>
                             </select>
                         </div>
                     </div>
@@ -62,19 +62,19 @@
                         <div class="select">
                             <select name="ahour">
                                 <option  selected >Appointment hour</option>
-                                <option value="08">08h</option>
-                                <option value="09">09h</option>
-                                <option value="10">10h</option>
-                                <option value="11">11h</option>
-                                <option value="12">12h</option>
-                                <option value="13">13h</option>
-                                <option value="14">14h</option>
-                                <option value="15">15h</option>
-                                <option value="16">16h</option>
-                                <option value="17">17h</option>
-                                <option value="18">18h</option>
-                                <option value="19">19h</option>
-                                <option value="20">20h</option>
+                                <option {% if app.request.get('ahour') == '08' %}selected{% endif %} value="08">08h</option>
+                                <option {% if app.request.get('ahour') == '09' %}selected{% endif %} value="09">09h</option>
+                                <option {% if app.request.get('ahour') == '10' %}selected{% endif %} value="10">10h</option>
+                                <option {% if app.request.get('ahour') == '11' %}selected{% endif %} value="11">11h</option>
+                                <option {% if app.request.get('ahour') == '12' %}selected{% endif %} value="12">12h</option>
+                                <option {% if app.request.get('ahour') == '13' %}selected{% endif %} value="13">13h</option>
+                                <option {% if app.request.get('ahour') == '14' %}selected{% endif %} value="14">14h</option>
+                                <option {% if app.request.get('ahour') == '15' %}selected{% endif %} value="15">15h</option>
+                                <option {% if app.request.get('ahour') == '16' %}selected{% endif %} value="16">16h</option>
+                                <option {% if app.request.get('ahour') == '17' %}selected{% endif %} value="17">17h</option>
+                                <option {% if app.request.get('ahour') == '18' %}selected{% endif %} value="18">18h</option>
+                                <option {% if app.request.get('ahour') == '19' %}selected{% endif %} value="19">19h</option>
+                                <option {% if app.request.get('ahour') == '20' %}selected{% endif %} value="20">20h</option>
                             </select>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                 <button class="advanced-submit" type="submit">Search &raquo;</button>
             </form>
         </div>
-        <div class="container search-box">
+        <div class="container search-box results">
             {% if query %}
                 <p>Search results for « {{ query }} »</p>
             {% else %}

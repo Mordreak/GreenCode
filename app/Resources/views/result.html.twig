@@ -24,6 +24,7 @@
     .search-box {
         width: 80%;
         min-width: 280px;
+        max-width: 750px;
         margin: 40px auto 0 auto;
         position: relative;
         transition: opacity 0.4s linear, visibility 0.4s linear 0s;
@@ -36,6 +37,11 @@
         color: #555;
         text-align: center;
         padding: 12px;
+    }
+
+    .search-box.results {
+        width: 250px;
+        min-width: 0;
     }
 
     .search-results {
