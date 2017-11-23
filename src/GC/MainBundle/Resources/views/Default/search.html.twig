@@ -33,12 +33,9 @@
                     </div>
                     <div class="right">
                         <div class="photo">
-                            {% if dentist.image %}
+                            {% if dentist.image | length > 0 %}
                                 <img src="data:image/png;{{ dentist.image }}"
                                      alt="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"/>
-                            {% else %}
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAp5JREFUeNp0U1tIFFEY/mbWMkRBd3UXQxNzFSlWlMWE0i3LLKKEfMygl6CMHTYfEguMqNCwh7Zm0oQgeughAkOMKLObZkFQVIRFdnETzJx1V3G3XWfn0jmDszhhh/nmv3z/95/hP3OY2NANLF/DTZzTc4v/ihXWShxrOM+aOAuBP9WRM07tv+L/caymaqAgD7+2zuNzn/bCVlnue3KA8xsc8Xl7TZXOUUviboNL0RQVjw+18Hnbq5sLPKWIjfahZL+HNvQNHfTRTSy5NVXeonq3zjl3V1OumXDKjpuXOOauPcOZZs8edx9tgDT2cum7WKS6tuJz/ygsq1eheJcbix9fgGyp06kuD15fuYP4bLiAme+/hkeHT/C2vAzv+goHGAbJJmvKawFVQfz9cFKsacC3N78RmloQdl6/yDGhvm6dGDzSxtty072FLpupCTSYxR+CCE9HhfreC5xeosoqKOqudnAzUxFh/J2IREyGHCf4I0GOSbpPc1/eigj+igq01tCl0JexZDBgbblISFHiqaZj1EiGsdohiwFluYZVSEBxj2vnHRVlXmdtJeRFsmPcDEVSUVK/BTllG3yk1m/oWJUc40DLGb+9wuUtqipF6PkD8smSqYnuxxYRfnofxZvLSJONPqLhqZbpsWYWplkzv29qrMXcyEMy9aWBEQSmE2DJRPMdKTDmyrAWZG3bg1e3BxGbmy9gAr1dGDjZ4bemW3x52YxeSMWTQRXhiCpQUVY6683PZpNNJmdVhBZUYV/nKY6lf+Le823HRVI8MaNClhRQG4xoAslzFNSfEAmXUBAQFYgLWg/NU23yLjScbeVmo9rlsWmAWhqbONLkE+HECAQSHzM45ofQaTquvvaudY3nWn+udJ0J5ySc6Tr/FWAAWrOVmqP8y7MAAAAASUVORK5CYII="
-                                     alt="No photo"/>
                             {% endif %}
                         </div>
                         <div class="button-detail"><span>Details &raquo;</span></div>
