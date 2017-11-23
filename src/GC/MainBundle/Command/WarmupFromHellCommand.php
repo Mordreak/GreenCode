@@ -86,9 +86,11 @@ class WarmupFromHellCommand extends ContainerAwareCommand
         }
 
         $output->writeln('Start: ' . date('H:i:s'));
+        $output->writeln(count($urls) . 'urls to test');
 
         $curl = curl_init();
 
+        $n = 0;
         foreach ($urls as $url)
         {
             $url = $baseUrl . $url;
@@ -107,9 +109,15 @@ class WarmupFromHellCommand extends ContainerAwareCommand
                 if (!$input->getOption('silent'))
                     $output->writeln($url . '... ' . $info['http_code']);
             }
+
+            if ($n % 500 == 0)
+                $output->write($n . '... ');
+            $n++;
         }
 
         curl_close($curl);
+
+        $output->writeln('');
 
         $output->writeln('End: ' . date('H:i:s'));
 
