@@ -44,6 +44,8 @@ class DefaultController extends Controller
         $openDays = $request->query->get('days');
         $openHour = $request->query->get('hour');
 
+        $page = $page > 0 ? $page : 1;
+
         if (is_string($openDays)) {
             $openDays = array($openDays);
         }
