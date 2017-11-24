@@ -3,7 +3,7 @@
     {% include 'detail.html.twig' %}
 {% endblock %}
 {% block body %}
-    <div class="detail container">
+    <div class="detail container" id="detail">
         <div class="name">
             {% if dentist.image | length > 0 %}
                 <img src="{{ dentist.image }}" alt="{{ dentist.firstname }} {{ dentist.lastname }}">
