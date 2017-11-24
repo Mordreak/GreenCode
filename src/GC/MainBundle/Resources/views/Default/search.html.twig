@@ -37,11 +37,11 @@
                 <hr/>
                 <div class="filters-wrapper">
                     <div class="specialization">
-                        <span>
+                        <label for="spec">
                             Specialization:
-                        </span>
+                        </label>
                         <div class="select">
-                            <select name="spec">
+                            <select id="spec" name="spec">
                                 <option value="">All specializations</option>
                                 <option {% if app.request.get('spec') == 'dph' %}selected{% endif %} value="dph">Dental Public Health</option>
                                 <option {% if app.request.get('spec') == 'end' %}selected{% endif %} value="end">Endodontics</option>
@@ -56,11 +56,11 @@
                         </div>
                     </div>
                     <div>
-                        <span>
+                        <label for="q">
                             Search:
-                        </span>
+                        </label>
                         <div class="search">
-                            <input maxlength="255" placeholder="Name, Firstname Or Address..." type="text" name="q" value="{{ app.request.get('q') }}">
+                            <input id="q" maxlength="255" placeholder="Name, Firstname Or Address..." type="text" name="q" value="{{ app.request.get('q') }}">
                         </div>
                     </div>
                 </div>
@@ -111,12 +111,12 @@
                     <div class="pages">
                         {% if page > 1 %}
                             {% if 'p=' in app.request.uri %}
-                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (page - 1))}) }}">&laquo;</a>
+                                <a href="{{ app.request.uri | replace({('p=' ~ page) : 'p=1'}) }}">&laquo;</a>
                             {% else %}
-                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (page - 1)) }}">&laquo;</a>
+                                <a href="{{ (app.request.uri) ~ ('&p=1') }}">&laquo;</a>
                             {% endif %}
                         {% endif %}
-                        {% for n in -5..5 %}
+                        {% for n in -2..2 %}
                             {% if page + n > 0 and page + n < maxPage %}
                                 {% if page + n == page %}
                                     <a href="#" class="active disabled">{{ page + n }}</a>
@@ -131,9 +131,9 @@
                         {% endfor %}
                         {% if page < maxPage %}
                             {% if 'p=' in app.request.uri %}
-                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (page + 1))}) }}">&raquo;</a>
+                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (maxPage))}) }}">&raquo;</a>
                             {% else %}
-                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (page + 1)) }}">&raquo;</a>
+                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (maxPage)) }}">&raquo;</a>
                             {% endif %}
                         {% endif %}
                     </div>
