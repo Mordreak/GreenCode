@@ -36,6 +36,11 @@
 
                     <h5>Opening hours</h5>
 
+                    {% if dentist.SundayOpened %}
+                        <p class="item"><span class="label day">Sunday: </span><span class="value hours">{{ dentist.SundayOpeningFormatted }} - {{ dentist.SundayClosingFormatted }}</span></p>
+                    {% else %}
+                        <p class="item"><span class="label day">Sunday: </span><span class="value closed">Closed</span></p>
+                    {% endif %}
                     {% if dentist.MondayOpened %}
                         <p class="item"><span class="label day">Monday: </span><span class="value hours">{{ dentist.MondayOpeningFormatted }} - {{ dentist.MondayClosingFormatted }}</span></p>
                     {% else %}
@@ -65,11 +70,6 @@
                         <p class="item"><span class="label day">Saturday: </span><span class="value hours">{{ dentist.SaturdayOpeningFormatted }} - {{ dentist.SaturdayClosingFormatted }}</span></p>
                     {% else %}
                         <p class="item"><span class="label day">Saturday: </span><span class="value closed">Closed</span></p>
-                    {% endif %}
-                    {% if dentist.SundayOpened %}
-                        <p class="item"><span class="label day">Sunday: </span><span class="value hours">{{ dentist.SundayOpeningFormatted }} - {{ dentist.SundayClosingFormatted }}</span></p>
-                    {% else %}
-                        <p class="item"><span class="label day">Sunday: </span><span class="value closed">Closed</span></p>
                     {% endif %}
                 </div>
             {% endif %}
