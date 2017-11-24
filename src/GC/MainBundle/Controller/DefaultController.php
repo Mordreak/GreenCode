@@ -103,7 +103,7 @@ class DefaultController extends Controller
             $dentists = array();
 
         if (!isset($dentists[$dentist->getId()]))
-            $dentists[$dentist->getId()] = $dentist->getId();
+            $dentists[$dentist->getId()] = $dentist->getFirstname() . ' ' . $dentist->getLastname();
 
         $this->get('session')->set('dentists', $dentists);
 
