@@ -20,6 +20,12 @@
         border-radius: 6px;
     }
 
+    @media all and (max-width: 500px) {
+        .detail.container {
+            width: 280px;
+        }
+    }
+
     .value a {
         {% if app.request.get('_theme') != "bright" %}
             color: grey;

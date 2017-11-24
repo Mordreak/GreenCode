@@ -8,7 +8,7 @@
             {% if dentist.image | length > 0 %}
                 <img src="{{ dentist.image }}" alt="{{ dentist.firstname }} {{ dentist.lastname }}">
             {% endif %}
-            <h2>{{ dentist.firstname }} {{ dentist.lastname }}</h2>
+            <h2>{% if dentist.gender %}Mr {% else %}Mrs {% endif %}{{ dentist.firstname }} {{ dentist.lastname }}</h2>
         </div>
         <div class="detail">
             {% if dentist.specialty | length > 0 %}
