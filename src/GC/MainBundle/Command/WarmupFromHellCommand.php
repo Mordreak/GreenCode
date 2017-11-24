@@ -17,13 +17,12 @@ class WarmupFromHellCommand extends ContainerAwareCommand
         $this
             // the name of the command (the part after "bin/console")
             ->setName('app:warmup-from-hell')
-
             // the short description shown while running "php bin/console list"
             ->setDescription('Warmup the cache.')
-
             ->addOption('dry-run')
             ->addOption('days')
             ->addOption('lol')
+            ->addOption('pages')
             ->addArgument('base-url')
             ->addOption('silent')
 
@@ -88,15 +87,15 @@ class WarmupFromHellCommand extends ContainerAwareCommand
 
         if ($input->getOption('lol'))
         {
-            for ($i=97; $i<=122; $i++) {
-                $urls[] = $searchUrl . 'q='. chr($i);
-                for ($j=97; $j<=122; $j++) {
+            for ($i = 97; $i <= 122; $i++)
+            {
+                $urls[] = $searchUrl . 'q=' . chr($i);
+                for ($j = 97; $j <= 122; $j++)
+                {
                     $urls[] = $searchUrl . 'q=' . chr($i) . chr($j);
-                    for ($k=97; $k<=122; $k++) {
+                    for ($k = 97; $k <= 122; $k++)
+                    {
                         $urls[] = $searchUrl . 'q=' . chr($i) . chr($j) . chr($k);
-                        for ($l=97; $l<=122; $l++) {
-                            $urls[] = $searchUrl . 'q=' . chr($i) . chr($j) . chr($k) . chr($l);
-                        }
                     }
                 }
             }
@@ -110,27 +109,54 @@ class WarmupFromHellCommand extends ContainerAwareCommand
         $n = 0;
         foreach ($urls as $url)
         {
-            $url = $baseUrl . $url;
+            $u = $baseUrl . $url;
+            $currentUrls = array($u);
 
-            if ($input->getOption('dry-run'))
+            if ($input->getOption('pages') and strpos($u, 'search'))
             {
-                if (!$input->getOption('silent'))
-                    $output->writeln($url);
+                foreach (range(2, 5) as $n)
+                {
+                    if (strpos($u, '?'))
+                    {
+                        $currentUrls[] = $baseUrl . $url . '&p=' . $n;
+                    }
+                    else
+                    {
+                        $currentUrls[] = $baseUrl . $url . '?p=' . $n;
+                    }
+                }
             }
-            else
+
+            foreach ($currentUrls as $currentUrl)
             {
-                curl_setopt($curl, CURLOPT_URL, $url);
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                curl_exec($curl);
-                $info = curl_getinfo($curl);
-                if (!$input->getOption('silent'))
-                    $output->writeln($url . '... ' . $info['http_code']);
+                $currentUrl = str_replace(' ', '%20', $currentUrl);
+                if ($input->getOption('dry-run'))
+                {
+                    if (!$input->getOption('silent'))
+                    {
+                        $output->writeln($currentUrl);
+                    }
+                }
+                else
+                {
+                    curl_setopt($curl, CURLOPT_URL, $currentUrl);
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_exec($curl);
+                    $info = curl_getinfo($curl);
+                    if (!$input->getOption('silent'))
+                    {
+                        $output->writeln($currentUrl . '... ' . $info['http_code']);
+                    }
+                }
             }
 
             if ($n % 500 == 0)
+            {
                 $output->write($n . '... ');
+            }
             $n++;
         }
+
 
         curl_close($curl);
 
