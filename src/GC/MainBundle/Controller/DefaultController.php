@@ -6,6 +6,7 @@ use GC\MainBundle\Entity\Dentist;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GC\MainBundle\Repository\DentistRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -95,6 +96,8 @@ class DefaultController extends Controller
         $dentist = $this->get('memcache.default')->get($dentist_id);
         if ($dentist === false) {
             $dentist = $dentistRepository->find($dentist_id);
+            if (!$dentist || !$dentist->getId())
+                throw new NotFoundHttpException();
             $this->get('memcache.default')->set($dentist_id, $dentist, 0, 345600);
         }
 
