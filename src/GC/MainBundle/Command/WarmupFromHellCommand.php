@@ -59,28 +59,43 @@ class WarmupFromHellCommand extends ContainerAwareCommand
             $address = str_replace(' ', '%20', $dentist->getAddress());
             $city = str_replace(' ', '%20', $dentist->getCity());
 
+            $queries = array();
+
             $urls[] = $router->generate('gc_main_detail', array('dentist_id' => $dentist->getId()));
-            $urls[] = $searchUrl . 'q=' . $dentist->getFirstname();
-            $urls[] = $searchUrl . 'q=' . $dentist->getLastname();
-            $urls[] = $searchUrl . 'q=' . $dentist->getFirstname() . '%20' . $dentist->getLastname();
+            $queries[] = $searchUrl . 'q=' . $dentist->getFirstname();
+            $queries[] = $searchUrl . 'q=' . $dentist->getLastname();
+            $queries[] = $searchUrl . 'q=' . $dentist->getFirstname() . '%20' . $dentist->getLastname();
             if ($dentist->getSpecialty())
-                $urls[] = $searchUrl . 'q=' . $dentist->getSpecialty();
-            $urls[] = $searchUrl . 'q=' . $address;
-            $urls[] = $searchUrl . 'q=' . $city;
-            $urls[] = $searchUrl . 'q=' . $address . '%20' . $city;
+                $queries[] = $searchUrl . 'q=' . $dentist->getSpecialty();
+            $queries[] = $searchUrl . 'q=' . $address;
+            $queries[] = $searchUrl . 'q=' . $city;
+            $queries[] = $searchUrl . 'q=' . $address . '%20' . $city;
 
             if ($input->getOption('days'))
             {
                 foreach ($days as $day)
                 {
-                    $urls[] = $searchUrl . 'q=' . $dentist->getFirstname() . '&days[]=' . $day;
-                    $urls[] = $searchUrl . 'q=' . $dentist->getLastname() . '&days[]=' . $day;
-                    $urls[] = $searchUrl . 'q=' . $dentist->getFirstname() . '%20' . $dentist->getLastname() . '&days[]=' . $day;
+
+                    $queries[] = $searchUrl . 'q=' . $dentist->getFirstname() . '&days[]=' . $day;
+                    $queries[] = $searchUrl . 'q=' . $dentist->getLastname() . '&days[]=' . $day;
+                    $queries[] = $searchUrl . 'q=' . $dentist->getFirstname() . '%20' . $dentist->getLastname() . '&days[]=' . $day;
                     if ($dentist->getSpecialty())
-                        $urls[] = $searchUrl . 'q=' . $dentist->getSpecialty() . '&days[]=' . $day;;
-                    $urls[] = $searchUrl . 'q=' . $address . '&days[]=' . $day;;
-                    $urls[] = $searchUrl . 'q=' . $city . '&days[]=' . $day;;
-                    $urls[] = $searchUrl . 'q=' . $address . '%20' . $city . '&days[]=' . $day;;
+                        $queries[] = $searchUrl . 'q=' . $dentist->getSpecialty() . '&days[]=' . $day;;
+                    $queries[] = $searchUrl . 'q=' . $address . '&days[]=' . $day;;
+                    $queries[] = $searchUrl . 'q=' . $city . '&days[]=' . $day;;
+                    $queries[] = $searchUrl . 'q=' . $address . '%20' . $city . '&days[]=' . $day;;
+                }
+            }
+
+            if ($input->getOption('pages'))
+            {
+                foreach ($queries as $query)
+                {
+                    $urls[] = $query;
+                    foreach (range(2, 5) as $n)
+                    {
+                        $urls[] = $query . '&p=' . $n;
+                    }
                 }
             }
         }
@@ -109,44 +124,24 @@ class WarmupFromHellCommand extends ContainerAwareCommand
         $n = 0;
         foreach ($urls as $url)
         {
-            $u = $baseUrl . $url;
-            $currentUrls = array($u);
-
-            if ($input->getOption('pages') and strpos($u, 'search'))
+            $url = $baseUrl . $url;
+            $url = str_replace(' ', '%20', $url);
+            if ($input->getOption('dry-run'))
             {
-                foreach (range(2, 5) as $n)
+                if (!$input->getOption('silent'))
                 {
-                    if (strpos($u, '?'))
-                    {
-                        $currentUrls[] = $baseUrl . $url . '&p=' . $n;
-                    }
-                    else
-                    {
-                        $currentUrls[] = $baseUrl . $url . '?p=' . $n;
-                    }
+                    $output->writeln($url);
                 }
             }
-
-            foreach ($currentUrls as $currentUrl)
+            else
             {
-                $currentUrl = str_replace(' ', '%20', $currentUrl);
-                if ($input->getOption('dry-run'))
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_exec($curl);
+                $info = curl_getinfo($curl);
+                if (!$input->getOption('silent'))
                 {
-                    if (!$input->getOption('silent'))
-                    {
-                        $output->writeln($currentUrl);
-                    }
-                }
-                else
-                {
-                    curl_setopt($curl, CURLOPT_URL, $currentUrl);
-                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                    curl_exec($curl);
-                    $info = curl_getinfo($curl);
-                    if (!$input->getOption('silent'))
-                    {
-                        $output->writeln($currentUrl . '... ' . $info['http_code']);
-                    }
+                    $output->writeln($url . '... ' . $info['http_code']);
                 }
             }
 
