@@ -626,6 +626,7 @@ body {
          padding: 0 1em;
          background: #98d17a;
          pointer-events: none;
+         font-size: 10px;
      }
      /* Transition */
      .select:hover::after {
@@ -676,6 +677,7 @@ body {
      @media all and (max-width: 700px) {
          .filters-wrapper > div {
              width: 70%;
+             margin-top: 10px;
          }
      }
 

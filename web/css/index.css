@@ -479,7 +479,8 @@ body {
     bottom: 0;
     padding: 0 1em;
     background: #98d17a;
-    pointer-events: none; }
+    pointer-events: none;
+    font-size: 10px; }
   #search-wrapper .select:hover::after {
     color: white; }
   #search-wrapper .select::after {
@@ -512,7 +513,8 @@ body {
     padding: 0; }
   @media all and (max-width: 700px) {
     #search-wrapper .filters-wrapper > div {
-      width: 70%; } }
+      width: 70%;
+      margin-top: 10px; } }
   #search-wrapper .specialization .select {
     height: 30px; }
   #search-wrapper .specialization .select select {
