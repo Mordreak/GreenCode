@@ -19,6 +19,18 @@ class DefaultController extends Controller
         'sun' => 'sunday'
     );
 
+    const AVAILABLE_SPECIALIZATIONS = array(
+        'dph' => 'Dental Public Health',
+        'end' => 'Endodontics',
+        'omp' => 'Oral and Maxillofacial Pathology',
+        'omr' => 'Oral and Maxillofacial Radiology',
+        'oms' => 'Oral and Maxillofacial Surgery',
+        'odo' => 'Orthodontics and Dentofacial Orthopedics',
+        'pd'  => 'Pediatric Dentistry',
+        'per' => 'Periodontics',
+        'pro' => 'Prosthodontics'
+    );
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -34,26 +46,29 @@ class DefaultController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $query    = $request->query->get('q');
-        $page     = intval($request->query->get('p', 1));
-        $openDays = $request->query->get('days');
-
-        $openDays = $openDays ? $openDays: array();
+        $query          = $request->query->get('q');
+        $page           = intval($request->query->get('p', 1));
+        $openDays       = $request->query->get('days');
+        $specialization = $request->query->get('spec');
 
         $page = $page > 0 ? $page : 1;
 
-        if (is_string($openDays)) {
-            $openDays = array($openDays);
-        }
+        $openDays = $openDays && is_array($openDays) ? $openDays : array();
+
         $openDays = !empty($openDays) ? array_values(
             array_intersect_key(self::AVAILABLE_OPEN_DAYS, array_flip($openDays))
         ) : array();
 
+        $specialization = is_string($specialization) ? $specialization : null;
+        $specialization = self::AVAILABLE_SPECIALIZATIONS[$specialization] ?? null;
+
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
-        $results = $dentistRepository->searchFromCriteria($this->get('memcache.default'), $query, $page, $openDays);
+        $results = $dentistRepository->searchFromCriteria($this->get('memcache.default'), $query, $page, $openDays,
+            $specialization);
 
-        $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';', $openDays) . '-count');
+        $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';',
+                $openDays) . '-' . self::_slugify($specialization) . '-count');
 
         $maxPage = ceil($resultsCount / DentistRepository::RESULTS_PER_PAGE);
 
@@ -64,6 +79,8 @@ class DefaultController extends Controller
 
     /**
      * @param Request $request
+     *
+     * @param         $dentist_id
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -78,5 +95,12 @@ class DefaultController extends Controller
         }
 
         return $this->render('GCMainBundle:Default:detail.html.twig', array('dentist' => $dentist));
+    }
+
+    protected static function _slugify($str, $delimiter = '-')
+    {
+        return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter,
+            preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))),
+            $delimiter));
     }
 }

@@ -299,7 +299,7 @@
         {% endif %}
     }
 
-    .select-wrapper {
+    .filters-wrapper {
         display: flex;
         justify-content: space-around;
         margin-bottom: 15px;
@@ -324,18 +324,15 @@
         width: 40%;
     }
 
-    .search {
-        margin-top: 15px;
-    }
-
     .search input {
-        height:35px;
+        height:30px;
         width: 220px;
         border-radius: 6px;
         border: 1px solid darkgrey;
     }
 
     .search input ,.search input:focus {
+        display: block;
         box-shadow:none;
         background-color: none;
         outline: 0;
@@ -343,6 +340,11 @@
         font-family: Arial, sans-serif;
         color:#bbb;
         padding:0px 12px;
+    }
+
+    .search {
+        height: 30px;
+        margin-top: 5px;
     }
 
     .pagination {
@@ -357,13 +359,16 @@
         display: flex;
         justify-content: center;
 
-        box-shadow:2px 2px 2px gray;
         border-radius: 6px;
         text-decoration: none;
 
         border: none;
         background-color: #fff;
         font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .pagination .pages:hover {
+        box-shadow:2px 2px 2px gray;
     }
 
     .pagination .pages a {
@@ -389,7 +394,7 @@
         {% if app.request.get('_theme') == "bright" %}
             background-color: #4CAF50;
         {% else %}
-            background-color: black;
+            background-color: rgb(50, 50, 50);
         {% endif %}
         color: white;
     }
