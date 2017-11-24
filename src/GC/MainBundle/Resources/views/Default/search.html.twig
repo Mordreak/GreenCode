@@ -116,7 +116,7 @@
                             {% endif %}
                         {% endif %}
                         {% for n in -2..2 %}
-                            {% if page + n > 0 and page + n < maxPage %}
+                            {% if page + n > 0 and page + n <= maxPage %}
                                 {% if page + n == page %}
                                     <a href="#" class="active disabled">{{ page + n }}</a>
                                 {% else %}
