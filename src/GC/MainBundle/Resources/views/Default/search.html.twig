@@ -35,14 +35,14 @@
                     </div>
                 </div>
                 <hr/>
-                <div class="select-wrapper">
+                <div class="filters-wrapper">
                     <div class="specialization">
-                    <span>
-                        Specialization:
-                    </span>
+                        <span>
+                            Specialization:
+                        </span>
                         <div class="select">
                             <select name="spec">
-                                <option value="">Specialization</option>
+                                <option value="">All specializations</option>
                                 <option {% if app.request.get('spec') == 'dph' %}selected{% endif %} value="dph">Dental Public Health</option>
                                 <option {% if app.request.get('spec') == 'end' %}selected{% endif %} value="end">Endodontics</option>
                                 <option {% if app.request.get('spec') == 'omp' %}selected{% endif %} value="omp">Oral and Maxillofacial Pathology</option>
@@ -55,10 +55,14 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <hr />
-                <div class="search" >
-                    <input placeholder="Name, Firstname Or Address..." type="text" name="q" value="{{ app.request.get('q') }}">
+                    <div>
+                        <span>
+                            Search:
+                        </span>
+                        <div class="search">
+                            <input maxlength="255" placeholder="Name, Firstname Or Address..." type="text" name="q" value="{{ app.request.get('q') }}">
+                        </div>
+                    </div>
                 </div>
                 <button class="advanced-submit" type="submit">Search &raquo;</button>
             </form>
