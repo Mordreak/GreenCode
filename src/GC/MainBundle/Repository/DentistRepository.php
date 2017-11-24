@@ -14,10 +14,19 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
 {
     const RESULTS_PER_PAGE = 10;
 
-    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array())
+    /**
+     * @param       $memcache
+     * @param       $searchQuery
+     * @param int   $page
+     * @param array $openDays
+     * @param array $specialization
+     *
+     * @return array
+     */
+    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array(), $specialization = null)
     {
         $openDaysArray = implode(';', $openDays);
-        $cacheKey = $searchQuery . '-' . $page . '-' . $openDaysArray;
+        $cacheKey      = $searchQuery . '-' . $page . '-' . $openDaysArray . '-' . self::_slugify($specialization);
 
         $cachedValue = $memcache->get($cacheKey);
 
@@ -28,7 +37,13 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
             $qb->orWhere($qb->expr()->like('d.lastname', '?1'));
             $qb->orWhere($qb->expr()->like('d.address', '?1'));
             $qb->orWhere($qb->expr()->like('d.city', '?1'));
-            $qb->orWhere($qb->expr()->like('d.specialty', '?1'));
+
+            if (empty($specialization)) {
+                $qb->orWhere($qb->expr()->like('d.specialty', '?1'));
+            } else {
+                $qb->andWhere($qb->expr()->eq('d.specialty', '?3'));
+                $qb->setParameter(3, $specialization);
+            }
 
             $qb->setParameter(1, "%$searchQuery%");
 
@@ -47,7 +62,7 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
 
             $paginator = $this->_paginate($qb, $page);
 
-            $results = $paginator->getIterator()->getArrayCopy();
+            $results           = $paginator->getIterator()->getArrayCopy();
             $totalResultsCount = count($qb->getQuery()->getResult());
 
             $memcache->set($cacheKey, $results, 0, 345600);
@@ -87,5 +102,12 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($limit);
 
         return $paginator;
+    }
+
+    protected static function _slugify($str, $delimiter = '-')
+    {
+        return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter,
+            preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))),
+            $delimiter));
     }
 }
