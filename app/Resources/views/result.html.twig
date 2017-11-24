@@ -172,11 +172,11 @@
     .cb + .cb-label:before {
         content: '';
         background: #fff;
-        border: 2px solid #ddd;
+        border: 1px solid #ddd;
         display: inline-block;
         vertical-align: middle;
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
         padding: 2px;
         margin-right: 5px;
         text-align: center;
@@ -230,7 +230,7 @@
             background: black;
         {% endif %}
         overflow: hidden;
-        border-radius: .25em;
+        border-radius: 3px;
         margin-top: 5px;
         color: white !important;
     }
@@ -285,10 +285,8 @@
         border: none;
         text-align: center;
         cursor: pointer;
-        border-radius: 6px;
+        border-radius: 3px;
         padding: 10px 30px;
-        font-size: 16px;
-        margin-top: 15px;
     }
 
     .advanced-submit:hover {
@@ -305,19 +303,20 @@
         margin-bottom: 15px;
     }
 
-    .specialization {
-        width: 244px;
+    .filters-wrapper > div {
+        width: 40%;
+        min-width: 244px;
         padding: 0;
     }
 
     .specialization .select {
-        height: 37px;
+        height: 32px;
     }
 
     .specialization .select select {
-        height: 37px;
+        height: 32px;
         padding: 0 10px;
-        line-height: 37px;
+        line-height: 32px;
     }
 
     .opening {

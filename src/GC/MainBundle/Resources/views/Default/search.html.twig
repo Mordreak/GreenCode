@@ -10,7 +10,7 @@
             <hr />
             <form class="advanced-search" action='{{ url('gc_main_search', {'_theme': app.request.get('_theme')}) }}'>
                 <div class="dispo">
-                    <span>
+                    <span class="fs-14">
                          Availabilities:
                     </span>
                     <div>
@@ -37,7 +37,7 @@
                 <hr/>
                 <div class="filters-wrapper">
                     <div class="specialization">
-                        <label for="spec">
+                        <label class="fs-14" for="spec">
                             Specialization:
                         </label>
                         <div class="select">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div>
-                        <label for="q">
+                        <label class="fs-14" for="q">
                             Search:
                         </label>
                         <div class="search">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="advanced-submit" type="submit">Search &raquo;</button>
+                <button class="fs-14 advanced-submit" type="submit">Search &raquo;</button>
             </form>
         </div>
         <div class="container search-box results">
