@@ -106,12 +106,12 @@
                     <div class="pages">
                         {% if page > 1 %}
                             {% if 'p=' in app.request.uri %}
-                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (page - 1))}) }}">&laquo;</a>
+                                <a href="{{ app.request.uri | replace({('p=' ~ page) : 'p=1'}) }}">&laquo;</a>
                             {% else %}
-                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (page - 1)) }}">&laquo;</a>
+                                <a href="{{ (app.request.uri) ~ ('&p=1') }}">&laquo;</a>
                             {% endif %}
                         {% endif %}
-                        {% for n in -5..5 %}
+                        {% for n in -2..2 %}
                             {% if page + n > 0 and page + n < maxPage %}
                                 {% if page + n == page %}
                                     <a href="#" class="active disabled">{{ page + n }}</a>
@@ -126,9 +126,9 @@
                         {% endfor %}
                         {% if page < maxPage %}
                             {% if 'p=' in app.request.uri %}
-                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (page + 1))}) }}">&raquo;</a>
+                                <a href="{{ app.request.uri | replace({('p=' ~ page) : ('p=' ~ (maxPage))}) }}">&raquo;</a>
                             {% else %}
-                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (page + 1)) }}">&raquo;</a>
+                                <a href="{{ (app.request.uri) ~ ('&p=' ~ (maxPage)) }}">&raquo;</a>
                             {% endif %}
                         {% endif %}
                     </div>
