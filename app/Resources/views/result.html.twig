@@ -357,13 +357,16 @@
         display: flex;
         justify-content: center;
 
-        box-shadow:2px 2px 2px gray;
         border-radius: 6px;
         text-decoration: none;
 
         border: none;
         background-color: #fff;
         font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .pagination .pages:hover {
+        box-shadow:2px 2px 2px gray;
     }
 
     .pagination .pages a {
@@ -389,7 +392,7 @@
         {% if app.request.get('_theme') == "bright" %}
             background-color: #4CAF50;
         {% else %}
-            background-color: black;
+            background-color: rgb(50, 50, 50);
         {% endif %}
         color: white;
     }
