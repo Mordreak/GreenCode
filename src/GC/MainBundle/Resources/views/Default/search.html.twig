@@ -101,6 +101,7 @@
                                          alt="{{ dentist.firstname }} {{ dentist.lastname }}'s photo"/>
                                 {% endif %}
                             </div>
+                            <div class="visited">{% if dentist.id in dentists %}Visited{% endif %}</div>
                         </div>
                     </a>
                 {% endfor %}

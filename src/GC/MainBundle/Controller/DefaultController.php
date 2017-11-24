@@ -72,8 +72,12 @@ class DefaultController extends Controller
 
         $maxPage = ceil($resultsCount / DentistRepository::RESULTS_PER_PAGE);
 
+        $dentists = $this->get('session')->get('dentists');
+        if (!$dentists)
+            $dentists = array();
+
         return $this->render('GCMainBundle:Default:search.html.twig', compact(
-            'results', 'resultsCount', 'query', 'page', 'maxPage'
+            'results', 'resultsCount', 'query', 'page', 'maxPage', 'dentists'
         ));
     }
 
@@ -94,7 +98,18 @@ class DefaultController extends Controller
             $this->get('memcache.default')->set($dentist_id, $dentist, 0, 345600);
         }
 
-        return $this->render('GCMainBundle:Default:detail.html.twig', array('dentist' => $dentist));
+        $dentists = $this->get('session')->get('dentists');
+        if (!$dentists)
+            $dentists = array();
+
+        if (!isset($dentists[$dentist->getId()]))
+            $dentists[$dentist->getId()] = $dentist->getId();
+
+        $this->get('session')->set('dentists', $dentists);
+
+        return $this->render('GCMainBundle:Default:detail.html.twig', array(
+            'dentist' => $dentist
+        ));
     }
 
     protected static function _slugify($str, $delimiter = '-')
