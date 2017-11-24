@@ -37,11 +37,11 @@
                 <hr/>
                 <div class="filters-wrapper">
                     <div class="specialization">
-                        <span>
+                        <label for="spec">
                             Specialization:
-                        </span>
+                        </label>
                         <div class="select">
-                            <select name="spec">
+                            <select id="spec" name="spec">
                                 <option value="">All specializations</option>
                                 <option {% if app.request.get('spec') == 'dph' %}selected{% endif %} value="dph">Dental Public Health</option>
                                 <option {% if app.request.get('spec') == 'end' %}selected{% endif %} value="end">Endodontics</option>
@@ -56,11 +56,11 @@
                         </div>
                     </div>
                     <div>
-                        <span>
+                        <label for="q">
                             Search:
-                        </span>
+                        </label>
                         <div class="search">
-                            <input maxlength="255" placeholder="Name, Firstname Or Address..." type="text" name="q" value="{{ app.request.get('q') }}">
+                            <input id="q" maxlength="255" placeholder="Name, Firstname Or Address..." type="text" name="q" value="{{ app.request.get('q') }}">
                         </div>
                     </div>
                 </div>
