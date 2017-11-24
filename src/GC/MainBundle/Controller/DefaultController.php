@@ -6,6 +6,7 @@ use GC\MainBundle\Entity\Dentist;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use GC\MainBundle\Repository\DentistRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -59,8 +60,10 @@ class DefaultController extends Controller
             array_intersect_key(self::AVAILABLE_OPEN_DAYS, array_flip($openDays))
         ) : array();
 
+        $specializations = self::AVAILABLE_SPECIALIZATIONS;
+
         $specialization = is_string($specialization) ? $specialization : null;
-        $specialization = self::AVAILABLE_SPECIALIZATIONS[$specialization] ?? null;
+        $specialization = isset($specializations[$specialization]) ? $specialization : null;
 
         $dentistRepository = $this->getDoctrine()->getRepository(Dentist::class);
 
@@ -68,7 +71,7 @@ class DefaultController extends Controller
             $specialization);
 
         $resultsCount = $this->get('memcache.default')->get($query . '-' . $page . '-' . implode(';',
-                $openDays) . '-' . self::_slugify($specialization) . '-count');
+                $openDays) . '-' . $specialization . '-count');
 
         $maxPage = ceil($resultsCount / DentistRepository::RESULTS_PER_PAGE);
 
@@ -95,6 +98,8 @@ class DefaultController extends Controller
         $dentist = $this->get('memcache.default')->get($dentist_id);
         if ($dentist === false) {
             $dentist = $dentistRepository->find($dentist_id);
+            if (!$dentist || !$dentist->getId())
+                throw new NotFoundHttpException();
             $this->get('memcache.default')->set($dentist_id, $dentist, 0, 345600);
         }
 
@@ -110,12 +115,5 @@ class DefaultController extends Controller
         return $this->render('GCMainBundle:Default:detail.html.twig', array(
             'dentist' => $dentist
         ));
-    }
-
-    protected static function _slugify($str, $delimiter = '-')
-    {
-        return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter,
-            preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))),
-            $delimiter));
     }
 }

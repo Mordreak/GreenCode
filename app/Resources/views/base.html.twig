@@ -18,14 +18,16 @@
                 <a class="title" href="{{ url('gc_main_homepage', {'_theme': app.request.get('_theme')}) }}">
                    <span class="fs-32">Green Dentist</span>
                 </a>
+                {% if app.session.get('dentists') is not empty %}
                 <div class="dropdown">
                     History
                     <ul>
-                        {% for id, dentist in app.session.get('dentists')|slice(0, 10) %}
+                        {% for id, dentist in app.session.get('dentists')|slice(0, 10, true)   %}
                             <a href="{{ path('gc_main_detail', {'dentist_id': id, '_theme': app.request.get('_theme')}) }}"><li>{{ dentist }}</li></a>
                         {% endfor %}
                     </ul>
                 </div>
+                {% endif %}
             </nav>
         {% endblock %}
         {% block body %}{% endblock %}

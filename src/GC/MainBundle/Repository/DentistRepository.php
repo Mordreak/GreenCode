@@ -3,6 +3,7 @@
 namespace GC\MainBundle\Repository;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use GC\MainBundle\Controller\DefaultController;
 
 /**
  * DentistRepository
@@ -26,7 +27,7 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
     public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array(), $specialization = null)
     {
         $openDaysArray = implode(';', $openDays);
-        $cacheKey      = $searchQuery . '-' . $page . '-' . $openDaysArray . '-' . self::_slugify($specialization);
+        $cacheKey      = $searchQuery . '-' . $page . '-' . $openDaysArray . '-' . $specialization;
 
         $cachedValue = $memcache->get($cacheKey);
 
@@ -42,7 +43,7 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
                 $qb->orWhere($qb->expr()->like('d.specialty', '?1'));
             } else {
                 $qb->andWhere($qb->expr()->eq('d.specialty', '?3'));
-                $qb->setParameter(3, $specialization);
+                $qb->setParameter(3, DefaultController::AVAILABLE_SPECIALIZATIONS[$specialization]);
             }
 
             $qb->setParameter(1, "%$searchQuery%");
@@ -102,12 +103,5 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($limit);
 
         return $paginator;
-    }
-
-    protected static function _slugify($str, $delimiter = '-')
-    {
-        return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter,
-            preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))),
-            $delimiter));
     }
 }
