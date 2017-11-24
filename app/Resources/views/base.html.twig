@@ -22,7 +22,7 @@
                 <div class="dropdown">
                     History
                     <ul>
-                        {% for id, dentist in app.session.get('dentists')   %}
+                        {% for id, dentist in app.session.get('dentists')|slice(0, 10, true)   %}
                             <a href="{{ path('gc_main_detail', {'dentist_id': id, '_theme': app.request.get('_theme')}) }}"><li>{{ dentist }}</li></a>
                         {% endfor %}
                     </ul>
