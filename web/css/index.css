@@ -376,8 +376,9 @@ body {
   #search-wrapper .search-results .search-result-item:hover {
     cursor: pointer;
     box-shadow: 0 2px 14px rgba(51, 51, 51, 0.2);
-    border: 1px solid green;
-    transition: border 400ms ease-out, box-shadow 400ms ease-out; }
+    border: 1px solid #AAA;
+    transition: border 400ms ease-out, box-shadow 400ms ease-out;
+    background-color: #EEE; }
   #search-wrapper .search-results .search-result-item .detail {
     width: 60%;
     padding: 12px; }

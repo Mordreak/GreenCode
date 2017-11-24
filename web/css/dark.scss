@@ -462,7 +462,6 @@ body {
     box-shadow: none;
     border-radius: 6px;
     text-decoration: none;
-    background-color: #555;
     color: #fff;
     outline: 0;
     font-size: 16px;
@@ -472,7 +471,8 @@ body {
     flex-direction: row;
     justify-content: space-around;
     padding: 12px;
-    border: 1px solid white;
+    border: 1px solid black;
+    background-color: #333;
   }
 
   @media all and (max-width: 1000px) {
@@ -484,8 +484,9 @@ body {
   .search-results .search-result-item:hover {
     cursor: pointer;
     box-shadow: 0 2px 14px rgba(51, 51, 51, 0.2);
-    border: 1px solid black;
     transition: border 400ms ease-out, box-shadow 400ms ease-out;
+    border: 1px solid #BBB;
+    background-color: #555;
   }
 
   .search-results .search-result-item .detail {
