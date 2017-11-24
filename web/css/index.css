@@ -263,7 +263,8 @@ body {
   /* Custom Select */
   /* Arrow */
   /* Transition */
-  /* Advanced Search */ }
+  /* Advanced Search */
+  /* dropdown */ }
   #search-wrapper .container {
     width: 100%;
     padding: 0 10%;
@@ -425,7 +426,8 @@ body {
     bottom: 0;
     padding: 0 1em;
     background: #98d17a;
-    pointer-events: none; }
+    pointer-events: none;
+    font-size: 10px; }
   #search-wrapper .select:hover::after {
     color: white; }
   #search-wrapper .select::after {
@@ -456,9 +458,10 @@ body {
     width: 40%;
     min-width: 244px;
     padding: 0; }
-  @media all and (max-width: 600px) {
+  @media all and (max-width: 700px) {
     #search-wrapper .filters-wrapper > div {
-      width: 70%; } }
+      width: 70%;
+      margin-top: 10px; } }
   #search-wrapper .specialization .select {
     height: 30px; }
   #search-wrapper .specialization .select select {
@@ -517,5 +520,50 @@ body {
     color: white; }
   #search-wrapper .pagination .pages a:hover:not(.disabled) {
     background-color: #ddd; }
+  #search-wrapper .dropdown {
+    font: bold 12px/18px sans-serif;
+    display: inline-block;
+    margin-right: -4px;
+    position: relative;
+    padding: 15px 40px;
+    background: #4CAF50;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+    color: #fff; }
+  #search-wrapper .dropdown:hover {
+    background: #4CAF50;
+    color: #fff; }
+  #search-wrapper .dropdown ul {
+    padding: 0;
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 150px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transiton: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -ms-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -transition: opacity 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+  #search-wrapper .dropdown ul li {
+    padding: 5px 10px;
+    background: darkgrey;
+    display: block;
+    color: #fff; }
+  #search-wrapper .dropdown ul li:hover {
+    background: #4CAF50; }
+  #search-wrapper .dropdown:hover ul {
+    display: block;
+    opacity: 1;
+    visibility: visible; }
 
 /*# sourceMappingURL=index.css.map */
