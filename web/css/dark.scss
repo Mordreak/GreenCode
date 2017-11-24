@@ -60,6 +60,10 @@ body {
   font-size: 20px;
 }
 
+.fs-14 {
+  font-size: 20px;
+}
+
 .title {
   margin-right: auto;
   margin-left: 20px;
@@ -497,11 +501,11 @@ body {
   .cb + .cb-label:before {
     content: '';
     background: #fff;
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
     display: inline-block;
     vertical-align: middle;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     padding: 2px;
     margin-right: 5px;
     text-align: center;
@@ -545,7 +549,7 @@ body {
     height: 30px;
     background: black;
     overflow: hidden;
-    border-radius: .25em;
+    border-radius: 3px;
     margin-top: 5px;
     color: white !important;
   }
@@ -604,8 +608,6 @@ body {
     cursor: pointer;
     border-radius: 6px;
     padding: 10px 30px;
-    font-size: 16px;
-    margin-top: 15px;
   }
 
   .advanced-submit:hover {
@@ -618,19 +620,20 @@ body {
     margin-bottom: 15px;
   }
 
-  .specialization {
-    width: 244px;
+  .filters-wrapper > div {
+    width: 40%;
+    min-width: 244px;
     padding: 0;
   }
 
   .specialization .select {
-    height: 37px;
+    height: 30px;
   }
 
   .specialization .select select {
-    height: 37px;
+    height: 30px;
     padding: 0 10px;
-    line-height: 37px;
+    line-height: 30px;
   }
 
   .opening {
@@ -639,8 +642,9 @@ body {
 
   .search input {
     height: 30px;
-    width: 220px;
-    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
     border: 1px solid darkgrey;
   }
 
@@ -658,6 +662,7 @@ body {
   .search {
     height: 30px;
     margin-top: 5px;
+    width: 100%;
   }
 
   .pagination {
