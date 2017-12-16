@@ -3,6 +3,7 @@
 namespace GC\MainBundle\Repository;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use GC\MainBundle\Controller\DefaultController;
 
 /**
  * DentistRepository
@@ -12,12 +13,21 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class DentistRepository extends \Doctrine\ORM\EntityRepository
 {
-    const RESULTS_PER_PAGE = 20;
+    const RESULTS_PER_PAGE = 10;
 
-    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array(), $openHour = null)
+    /**
+     * @param       $memcache
+     * @param       $searchQuery
+     * @param int   $page
+     * @param array $openDays
+     * @param array $specialization
+     *
+     * @return array
+     */
+    public function searchFromCriteria($memcache, $searchQuery, $page = 1, $openDays = array(), $specialization = null)
     {
         $openDaysArray = implode(';', $openDays);
-        $cacheKey = $searchQuery . '-' . $page . '-' . $openDaysArray . '-' . $openHour;
+        $cacheKey      = $searchQuery . '-' . $page . '-' . $openDaysArray . '-' . $specialization;
 
         $cachedValue = $memcache->get($cacheKey);
 
@@ -28,7 +38,13 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
             $qb->orWhere($qb->expr()->like('d.lastname', '?1'));
             $qb->orWhere($qb->expr()->like('d.address', '?1'));
             $qb->orWhere($qb->expr()->like('d.city', '?1'));
-            $qb->orWhere($qb->expr()->like('d.specialty', '?1'));
+
+            if (empty($specialization)) {
+                $qb->orWhere($qb->expr()->like('d.specialty', '?1'));
+            } else {
+                $qb->andWhere($qb->expr()->eq('d.specialty', '?3'));
+                $qb->setParameter(3, DefaultController::AVAILABLE_SPECIALIZATIONS[$specialization]);
+            }
 
             $qb->setParameter(1, "%$searchQuery%");
 
@@ -40,15 +56,6 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
                         $qb->expr()->isNotNull("d.${openDay}Closing")
                     );
 
-                    if ($openHour) {
-                        $condition->add($qb->expr()->andX(
-                            $qb->expr()->lte("d.${openDay}Opening", '?2'),
-                            $qb->expr()->gte("d.${openDay}Closing", '?2')
-                        ));
-
-                        $qb->setParameter(2, $openHour);
-                    }
-
                     $conditions->add($condition);
                 }
                 $qb->andWhere($conditions);
@@ -56,7 +63,7 @@ class DentistRepository extends \Doctrine\ORM\EntityRepository
 
             $paginator = $this->_paginate($qb, $page);
 
-            $results = $paginator->getIterator()->getArrayCopy();
+            $results           = $paginator->getIterator()->getArrayCopy();
             $totalResultsCount = count($qb->getQuery()->getResult());
 
             $memcache->set($cacheKey, $results, 0, 345600);
